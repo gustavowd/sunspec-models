@@ -23,7 +23,7 @@ Add this to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-sunspec = "*"
+sunspec-models = "*"
 ```
 
 ### Cargo Features
