@@ -1,6 +1,16 @@
 [package]
 name = "sunspec-models"
+description = "Sunspec Models library - may be use with any modbus library"
 version = "0.1.0"
+authors = [
+    "Gustavo Weber Denardin <gustavo.denardin@gmail.com>"
+]
+license = "Apache-2.0"
+readme = "README.md"
+keywords = ["modbus", "sunspec", "smartgrid"]
+homepage = "https://github.com/gustavowd/sunspec-models"
+repository = "https://github.com/gustavowd/sunspec-models"
+include = ["src", "CHANGELOG.md", "README.md", "LICENSES"]
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
