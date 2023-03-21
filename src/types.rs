@@ -1,3 +1,7 @@
+// The ideia for the PointType trait and the implementation for decode and encode functions
+// were copied from a different crate, available at:
+// https://github.com/lukaskirner/tokio-sunspec/blob/main/src/point.rs
+
 use crate::utils::*;
 
 pub trait PointType<T> {
