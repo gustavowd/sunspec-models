@@ -47,8 +47,9 @@ pub enum ConnState {
     PAD=0xFFFF
 }
 
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone)]
 pub struct Model701 {
+    pub start_addr: u16,
     pub model_number: u16,
     pub qtd: u16,
     pub ac_type: ACType,
@@ -120,12 +121,13 @@ pub struct Model701 {
     pub  tot_wh_sf: i16,
     pub  tot_varh_sf: i16,
     pub  tmp_sf: i16,
-    pub  mn_alrm_info: [u8; 64],
+    pub  mn_alrm_info: FixString,
 }
 
-impl Sunspec for Model701 {
+impl Models for Model701 {
     fn new () -> Model701 {
         Model701 {
+            start_addr: 0,
             model_number: 701,
             qtd: 153,
             ac_type: ACType::default(),
@@ -197,101 +199,113 @@ impl Sunspec for Model701 {
             tot_wh_sf: 0,
             tot_varh_sf: 0,
             tmp_sf: 0,
-            mn_alrm_info: [0; 64],
+            mn_alrm_info: FixString { length: 32, value: String::new() },
         }
     }
 }
 
 impl From<Model701> for Vec<u16> {
     fn from(mut from: Model701) -> Self {
-        let mut registers: Vec<u16> = vec![0; 155];
+        let mut registers: Vec<u16> = vec![0; 2];
         registers[0] = from.model_number;
         registers[1] = from.qtd;
+
         let pointer: *mut u16 = unsafe{mem::transmute(&mut from.ac_type)};
-        let mut j = 0;
-        for i in 2..5{
-            registers[i] = unsafe{*pointer.offset(j)};
-            j += 1;
+        for i in 0..4 {
+            let vec_u16 = u16::encode(unsafe{*pointer.offset(i as isize)});
+            registers.extend(vec_u16);
         }
         
         let pointer: *mut u32 = &mut from.alrm as *mut u32;
-        j = 0;
-        for i in (6..8).step_by(2){
-            u32_to_vec_u16(unsafe{*pointer.offset(j)}, &mut registers, i);
-            j += 1;
+        for i in 0..2 {
+            let vec_u16 = u32::encode(unsafe{*pointer.offset(i as isize)});
+            registers.extend(vec_u16);
         }
 
-        let pointer: *mut u16 = unsafe{mem::transmute(&mut from.w)};
-        j = 0;
-        for i in 10..16{
-            registers[i] = unsafe{*pointer.offset(j)};
-            j += 1;
+        let pointer = &mut from.w as *mut i16;
+        for i in 0..5 {
+            let vec_i16 = i16::encode(unsafe{*pointer.offset(i as isize)});
+            registers.extend(vec_i16);
         }
 
-        let pointer: *mut u32 = &mut from.hz as *mut u32;
-        u32_to_vec_u16(unsafe{*pointer}, &mut registers, 17);
+        let pointer = &mut from.llv as *mut u16;
+        for i in 0..2 {
+            let vec_u16 = u16::encode(unsafe{*pointer.offset(i as isize)});
+            registers.extend(vec_u16);
+        }
+
+        registers.extend(u32::encode(from.hz));
 
         let pointer: *mut u64 = &mut from.tot_wh_inj as *mut u64;
-        j = 0;
-        for i in (19..31).step_by(4){
-            u64_to_vec_u16(unsafe{*pointer.offset(j)}, &mut registers, i);
-            j += 1;
+        for i in 0..4 {
+            let vec_u64 = u64::encode(unsafe{*pointer.offset(i as isize)});
+            registers.extend(vec_u64);
         }
 
-        let pointer: *mut u16 = unsafe{mem::transmute(&mut from.tmp_amb)};
-        j = 0;
-        for i in 35..47{
-            registers[i] = unsafe{*pointer.offset(j)};
-            j += 1;
+        let pointer = &mut from.tmp_amb as *mut i16;
+        for i in 0..11 {
+            let vec_i16 = i16::encode(unsafe{*pointer.offset(i as isize)});
+            registers.extend(vec_i16);
+        }
+        
+        let pointer = &mut from.vl1l2 as *mut u16;
+        for i in 0..2 {
+            let vec_u16 = u16::encode(unsafe{*pointer.offset(i as isize)});
+            registers.extend(vec_u16);
         }
 
         let pointer: *mut u64 = &mut from.tot_wh_injl1 as *mut u64;
-        j = 0;
-        for i in (48..60).step_by(4){
-            u64_to_vec_u16(unsafe{*pointer.offset(j)}, &mut registers, i);
-            j += 1;
+        for i in 0..4 {
+            let vec_u64 = u64::encode(unsafe{*pointer.offset(i as isize)});
+            registers.extend(vec_u64);
         }
 
-        let pointer: *mut u16 = unsafe{mem::transmute(&mut from.wl2)};
-        j = 0;
-        for i in 64..70{
-            registers[i] = unsafe{*pointer.offset(j)};
-            j += 1;
+        let pointer = &mut from.wl2 as *mut i16;
+        for i in 0..5 {
+            let vec_i16 = i16::encode(unsafe{*pointer.offset(i as isize)});
+            registers.extend(vec_i16);
+        }
+
+        let pointer = &mut from.lv2l3 as *mut u16;
+        for i in 0..2 {
+            let vec_u16 = u16::encode(unsafe{*pointer.offset(i as isize)});
+            registers.extend(vec_u16);
         }
 
         let pointer: *mut u64 = &mut from.tot_wh_injl2 as *mut u64;
-        j = 0;
-        for i in (71..83).step_by(4){
-            u64_to_vec_u16(unsafe{*pointer.offset(j)}, &mut registers, i);
-            j += 1;
+        for i in 0..4 {
+            let vec_u64 = u64::encode(unsafe{*pointer.offset(i as isize)});
+            registers.extend(vec_u64);
         }
 
-        let pointer: *mut u16 = unsafe{mem::transmute(&mut from.wl3)};
-        j = 0;
-        for i in 87..93{
-            registers[i] = unsafe{*pointer.offset(j)};
-            j += 1;
+        let pointer = &mut from.wl3 as *mut i16;
+        for i in 0..5 {
+            let vec_i16 = i16::encode(unsafe{*pointer.offset(i as isize)});
+            registers.extend(vec_i16);
+        }
+
+        let pointer = &mut from.lv3l1 as *mut u16;
+        for i in 0..2 {
+            let vec_u16 = u16::encode(unsafe{*pointer.offset(i as isize)});
+            registers.extend(vec_u16);
         }
 
         let pointer: *mut u64 = &mut from.tot_wh_injl3 as *mut u64;
-        j = 0;
-        for i in (94..106).step_by(4){
-            u64_to_vec_u16(unsafe{*pointer.offset(j)}, &mut registers, i);
-            j += 1;
+        for i in 0..4 {
+            let vec_u64 = u64::encode(unsafe{*pointer.offset(i as isize)});
+            registers.extend(vec_u64);
         }
 
-        registers[110] = from.throt_pct;
-        let pointer: *mut u32 = &mut from.throt_src as *mut u32;
-        u32_to_vec_u16(unsafe{*pointer}, &mut registers, 111);
+        registers.extend(u16::encode(from.throt_pct));
+        registers.extend(u32::encode(from.throt_src));
 
-        let pointer: *mut u16 = unsafe{mem::transmute(&mut from.a_sf)};
-        j = 0;
-        for i in 113..122{
-            registers[i] = unsafe{*pointer.offset(j)};
-            j += 1;
+        let pointer = &mut from.a_sf as *mut i16;
+        for i in 0..10 {
+            let vec_i16 = i16::encode(unsafe{*pointer.offset(i as isize)});
+            registers.extend(vec_i16);
         }
 
-        vec_u8_to_vec_u16(&from.mn_alrm_info, &mut registers, 123, from.mn_alrm_info.len());
+        registers.extend(Vec::<u16>::from(from.mn_alrm_info));
 
         registers
     }

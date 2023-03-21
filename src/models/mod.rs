@@ -1,26 +1,27 @@
 use std::io::Write;
 use std::mem;
+use crate::types::*;
 
 pub mod models200;
 pub mod models700;
-
 
 #[derive(Debug, Clone, Copy)]
 pub struct SunspecID {
     pub id: [u8; 4]
 }
 
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone)]
 pub struct Model1 {
+    pub start_addr: u16,
     pub model_number: u16,
     pub qtd: u16,
-    pub manufacturer: [u8; 32],
-    pub model: [u8; 32],
-    pub options: [u8; 16],
-    pub version: [u8; 16],
-    pub serial_number: [u8; 32],
+    pub manufacturer: FixString,
+    pub model: FixString,
+    pub options: FixString,
+    pub version: FixString,
+    pub serial_number: FixString,
     pub device_address: u16,
-    pub pad: u16
+    pub pad: u16,
 }
 
 #[derive(Debug, Clone, Copy)]
@@ -30,14 +31,12 @@ pub struct ModelEnd {
 }
 
 // Declare the struct
-pub trait Sunspec {
+pub trait Models {
     // This new function acts as a constructor
-    // allowing us to add additional logic to instantiating a struct
-    // This particular method belongs to the trait
     fn new () -> Self;
 }
 
-impl Sunspec for SunspecID {
+impl Models for SunspecID {
     fn new () -> SunspecID {
         let mut ret = SunspecID {
             id: [0; 4],
@@ -47,16 +46,17 @@ impl Sunspec for SunspecID {
     }
 }
 
-impl Sunspec for Model1 {
+impl Models for Model1 {
     fn new () -> Model1 {
         let ret = Model1 {
+            start_addr: 0,
             model_number: 1,
             qtd: 66,
-            manufacturer: [0; 32],
-            model: [0; 32],
-            options: [0; 16],
-            version: [0; 16],
-            serial_number: [0; 32],
+            manufacturer: FixString { length: 16, value: String::new() },
+            model: FixString { length: 16, value: String::new() },
+            options: FixString { length: 8, value: String::new() },
+            version: FixString { length: 8, value: String::new() },
+            serial_number: FixString { length: 16, value: String::new() },
             device_address: 0,
             pad: 0,
         };
@@ -64,9 +64,7 @@ impl Sunspec for Model1 {
     }
 }
 
-
-
-impl Sunspec for ModelEnd {
+impl Models for ModelEnd {
 
     fn new () -> ModelEnd {
         let ret = ModelEnd {
@@ -86,24 +84,6 @@ fn vec_u8_to_vec_u16(src: &[u8], dst: &mut Vec<u16>, mut idx: usize, size: usize
     idx
 }
 
-fn f32_to_vec_u16(src: f32, dst: &mut Vec<u16>, idx: usize) {
-    let tmp = src.to_bits();
-    dst[idx] = (tmp >> 16) as u16;
-    dst[idx+1] = (tmp & 0xFFFF) as u16;
-}
-
-fn u32_to_vec_u16(src: u32, dst: &mut Vec<u16>, idx: usize) {
-    dst[idx] = (src >> 16) as u16;
-    dst[idx+1] = (src & 0xFFFF) as u16;
-}
-
-fn u64_to_vec_u16(src: u64, dst: &mut Vec<u16>, idx: usize) {
-    dst[idx] = (src >> 48) as u16;
-    dst[idx+1] = ((src >> 32) & 0xFFFF) as u16;
-    dst[idx+2] = ((src >> 24) & 0xFFFF) as u16;
-    dst[idx+3] = (src & 0xFFFF) as u16;
-}
-
 pub fn srt_to_vec_u8(src: &str, mut dst: &mut [u8]){
     dst.write(src.as_bytes()).unwrap();
 }
@@ -118,21 +98,62 @@ impl From<SunspecID> for Vec<u16> {
     }
 }
 
+impl From<Vec<u16>> for SunspecID {
+    fn from(from: Vec<u16>) -> Self {
+        let mut sunspec = SunspecID::new();
+        sunspec.id[0] = (from[0] >> 8) as u8;
+        sunspec.id[1] = (from[0] & 0xFF) as u8;
+        sunspec.id[2] = (from[1] >> 8) as u8;
+        sunspec.id[3] = (from[1] & 0xFF) as u8;
+        sunspec
+    }
+}
+
+impl From<FixString> for Vec<u16> {
+    fn from(from: FixString) -> Self {
+        let mut regs = String::encode(from.value);
+        for _i in 0..(from.length-(regs.len() as u16)){
+            regs.push(0);
+        }
+        regs
+    }
+}
+
 impl From<Model1> for Vec<u16> {
     fn from(from: Model1) -> Self {
-        let size = mem::size_of::<Model1>() / 2;
-        let mut registers: Vec<u16> = vec![0; size];
+        let mut registers: Vec<u16> = vec![0; 2];
         registers[0] = from.model_number;
         registers[1] = from.qtd;
-        
-        let mut idx = vec_u8_to_vec_u16(&from.manufacturer, &mut registers, 2, from.manufacturer.len());
-        idx = vec_u8_to_vec_u16(&from.model, &mut registers, idx, from.model.len());
-        idx = vec_u8_to_vec_u16(&from.options, &mut registers, idx, from.options.len());
-        idx = vec_u8_to_vec_u16(&from.version, &mut registers, idx, from.version.len());
-        idx = vec_u8_to_vec_u16(&from.serial_number, &mut registers, idx, from.serial_number.len());
-        registers[idx] = from.device_address;
-        registers[idx+1] = from.pad;
+
+        registers.extend(Vec::<u16>::from(from.manufacturer));
+        registers.extend(Vec::<u16>::from(from.model));
+        registers.extend(Vec::<u16>::from(from.options));
+        registers.extend(Vec::<u16>::from(from.version));
+        registers.extend(Vec::<u16>::from(from.serial_number));
+
+        registers.push(from.device_address);
+        registers.push(from.pad);
         registers
+    }
+}
+
+impl From<(Vec<u16>, u16, &Model1)> for Model1 {
+    fn from(from: (Vec<u16>, u16, &Model1)) -> Self {
+        let mut model1 = from.2.clone();
+        let mut offset = from.1 - model1.start_addr;
+        let mut idx = 0;
+        loop {
+            match offset {
+                66 => model1.device_address = from.0[idx],
+                _ => {}
+            }
+            offset += 1;
+            idx += 1;
+            if from.0.len() == idx {
+                break;
+            }
+        }
+        model1
     }
 }
 

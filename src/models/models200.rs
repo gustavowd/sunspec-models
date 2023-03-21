@@ -41,6 +41,7 @@ pub enum Evt {
 
 #[derive(Debug, Default, Clone, Copy)]
 pub struct Model213 {
+    pub start_addr: u16,
     pub model_number: u16,
     pub qtd: u16,
     pub a: f32,
@@ -107,7 +108,7 @@ pub struct Model213 {
     pub evt: Evt
 }
 
-impl Sunspec for Model213 {
+impl Models for Model213 {
     fn new () -> Model213 {
         let mut ret = Model213::default();
         ret.model_number = 213;
@@ -118,19 +119,18 @@ impl Sunspec for Model213 {
 
 impl From<Model213> for Vec<u16> {
     fn from(mut from: Model213) -> Self {
-        let size = mem::size_of::<Model213>() / 2;
-        let mut registers: Vec<u16> = vec![0; size];
+        let mut registers: Vec<u16> = vec![0; 2];
         registers[0] = from.model_number;
         registers[1] = from.qtd;
         let pointer = &mut from.a as *mut f32;
 
-        let mut j = 0;
-        for i in (2..size-2).step_by(2) {
-            f32_to_vec_u16(unsafe{*pointer.offset(j)}, &mut registers, i);
-            j += 1;
+        for i in 0..61 {
+            let vec_float = f32::encode(unsafe{*pointer.offset(i as isize)});
+            registers.extend(vec_float);
         }
 
-        u32_to_vec_u16(from.evt as u32, &mut registers, 124);
+        let evt = u32::encode(from.evt as u32);
+        registers.extend(evt);
         registers
     }
 }
