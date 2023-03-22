@@ -16,3 +16,14 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+
+[dev-dependencies]
+anyhow = "1.0.69"
+futures = "0.3.26"
+futures-util = "0.3.26"
+tokio = { version = "1.25.0", features = [ "full" ] }
+tokio-modbus = {git = "https://github.com/slowtec/tokio-modbus.git", features=["tcp", "tcp-server"]}
+
+[[example]]
+name = "server"
+path = "examples/server.rs"
