@@ -1,13 +1,12 @@
 use std::{
-    mem,
     net::SocketAddr,
     sync::{Arc, Mutex},
 };
  
 use futures::future;
-use sunspec_models::models::{Models, SunspecID, Model1, ModelEnd};
-use sunspec_models::models::models200::Model213;
-use tokio::net::{TcpListener};
+use sunspec_models::models::{SunspecModels, Model, Models};
+use sunspec_models::types::{SunspecTypes, DataTypes};
+use tokio::net::TcpListener;
 use tokio_modbus::{
     prelude::*,
     server::tcp::{accept_tcp_connection, Server},
@@ -50,31 +49,12 @@ enum Exception {
     GatewayTargetDevice = 0x0B,
 }
 
-#[derive(Debug, Clone)]
-pub struct Sunspec {
-    id: SunspecID,
-    model1: Model1,
-    model213: Model213,
-    model_end: ModelEnd,
-}
-
-impl Sunspec {
-    fn new () -> Sunspec {
-        Sunspec {
-            id: SunspecID::new(),
-            model1: Model1::new(),
-            model213: Model213::new(),
-            model_end: ModelEnd::new()
-        }
-    }
-}
-
 struct Service {
-    models: Arc<Mutex<Sunspec>>,
+    models: Arc<Mutex<Models>>,
 }
 
 impl Service {
-    fn new(data: Arc<Mutex<Sunspec>>) -> Self {
+    fn new(data: Arc<Mutex<Models>>) -> Self {
         Self {
             models: data,
         }
@@ -92,34 +72,57 @@ impl tokio_modbus::server::Service for Service {
         println!("Responding request of unit id: {}", req.slave);
         match req.request.clone() {
             Request::ReadHoldingRegisters(addr, cnt) => {
-                let mut models = self.models.lock().unwrap();
+                let mut start_addr = 0;
+                let mut sunspec = self.models.lock().unwrap();
+                let mut registers: Vec<u16> = Vec::new();
+                if (addr >= SUNSPEC_INIT_ADDR) && (addr < SUNSPEC_INIT_ADDR + 2) {
+                    registers = sunspec.id.into();
+                    start_addr = SUNSPEC_INIT_ADDR;
+                }else {
+                    for model in sunspec.models.iter() {
+                        if (addr >= model.start_addr) && (addr < model.end_addr) {
+                            let model_tmp = model.clone();
+                            registers = Vec::<u16>::from(model_tmp);
+                            start_addr = model.start_addr;
+                        }
+                    }
+                }
+                let end_addr = sunspec.models[sunspec.models.len()-1].end_addr;
+                
+                // Update current for test purposes
+                let a = sunspec.models[1].get_f32("A");
+                match a {
+                    Some(mut a) => {
+                        a += 0.1;
+                        sunspec.models[1].update_data("A", &DataTypes::new_f32(a));
+                    },
+                    _ => {}
+                }
+                drop(sunspec);
 
-                let mut registers: Vec<u16> = models.id.into();
-                let model1a = models.model1.clone();
-                registers.extend(Vec::<u16>::from(model1a));
-                registers.extend(Vec::<u16>::from(models.model213));
-                registers.extend(Vec::<u16>::from(models.model_end));
-                // Emulate current variation
-                models.model213.a += 0.1;
-                drop(models);
-
-                if addr >= SUNSPEC_INIT_ADDR && (addr + cnt) <= (SUNSPEC_INIT_ADDR + (mem::size_of::<Sunspec>() / 2) as u16) {
+                if addr >= SUNSPEC_INIT_ADDR && (addr + cnt) <= end_addr {
                     println!("Read Holding Registers - Addr: {} - cnt: {}", addr, cnt);
-                    let registers = &registers[(addr - SUNSPEC_INIT_ADDR) as usize..(cnt + (addr - SUNSPEC_INIT_ADDR)) as usize];
+                    let registers = &registers[(addr-start_addr) as usize..(cnt+(addr-start_addr)) as usize];
                     future::ready(Ok(Response::ReadHoldingRegisters(registers.to_vec())))
                 }else {
                     future::ready(error_response(&req.request, Exception::IllegalDataAddress))
                 }
             },
             Request::WriteMultipleRegisters(addr, regs) => {
-                if addr >= SUNSPEC_INIT_ADDR && (addr + regs.len() as u16) <= (SUNSPEC_INIT_ADDR + (mem::size_of::<Sunspec>() / 2) as u16) {
+                let sunspec = self.models.lock().unwrap();
+                let end_addr = sunspec.models[sunspec.models.len()-1].end_addr;
+                drop(sunspec);
+                if addr >= SUNSPEC_INIT_ADDR && (addr + regs.len() as u16) <= end_addr {
                     println!("Write Multiple Registers - Addr: {} - cnt: {}", addr, regs.len());
-                    let mut models = self.models.lock().unwrap();
-                    if (addr >= models.model1.start_addr) && (addr <= (models.model1.start_addr + models.model1.qtd)) {
-                        let model1_tmp = Model1::from((regs.clone(), addr, &models.model1));
-                        models.model1 = model1_tmp;
+                    let mut sunspec = self.models.lock().unwrap();
+                    for model in sunspec.models.iter_mut() {
+                        if (addr >= model.start_addr) && (addr <= (model.end_addr)) {
+                            let model_tmp = Model::from((regs.clone(), addr, regs.len() as u16, &model.clone()));
+                            *model = model_tmp;
+                            println!("{:?}", model);
+                        }
                     }
-                    drop(models);
+                    drop(sunspec);
 
                     future::ready(Ok(Response::WriteMultipleRegisters(addr,regs.len() as u16)))
                 }else {
@@ -135,18 +138,22 @@ impl tokio_modbus::server::Service for Service {
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let socket_addr = "127.0.0.1:5502".parse().unwrap();
 
-    let data: Arc<Mutex<Sunspec>> = Arc::new(Mutex::new(Sunspec::new()));
+    let data: Arc<Mutex<Models>> = Arc::new(Mutex::new(Models::new()));
     let mut new_model = data.lock().unwrap();
-    new_model.model1.start_addr = SUNSPEC_INIT_ADDR + 2;
-    new_model.model1.manufacturer.value = "Manufactor".to_string();
-    new_model.model1.model.value = "Model".to_string();
-    new_model.model1.serial_number.value = "ABCD1234".to_string();
-    new_model.model1.options.value = "Options".to_string();
+    new_model.models.push(Model::new(1));
+    new_model.models.push(Model::new(213));
+    new_model.models.push(Model::new(65535));
+    
+    new_model.models[0].update_data("Mn", &DataTypes::new_string("Manufactor"));
+    new_model.models[0].update_data("Md", &DataTypes::new_string("Model"));
+    new_model.models[0].update_data("Ver", &DataTypes::new_string("ABCD1234"));
+    new_model.models[0].update_data("SN", &DataTypes::new_string("12345678"));
 
-    new_model.model213.start_addr = SUNSPEC_INIT_ADDR + 2 + new_model.model213.qtd + 2;
-    new_model.model213.a = 12.5;
-    new_model.model213.hz = 60.05;
-    new_model.model213.pf = 0.92;
+    new_model.models[1].update_data("A", &DataTypes::new_f32(12.5));
+    new_model.models[1].update_data("Hz", &DataTypes::new_f32(60.05));
+    new_model.models[1].update_data("PF", &DataTypes::new_f32(0.92));
+
+    new_model.compute_addr();
     drop(new_model);
 
     tokio::select! {
@@ -154,7 +161,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     }
 }
 
-async fn server_context(socket_addr: SocketAddr, data: Arc<Mutex<Sunspec>>) -> anyhow::Result<()> {
+async fn server_context(socket_addr: SocketAddr, data: Arc<Mutex<Models>>) -> anyhow::Result<()> {
     println!("Starting up server on {socket_addr}");
     let listener = TcpListener::bind(socket_addr).await?;
     let server = Server::new(listener);

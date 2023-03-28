@@ -5,41 +5,34 @@ pub mod types;
 
 #[cfg(test)]
 mod tests {
-    use crate::models::{self, Models, SunspecID};
+    use crate::models::{SunspecModels, Models, Model, SunspecID};
+    use crate::types::{SunspecTypes, DataTypes};
 
     #[test]
-    fn convert_model_213() {
-        struct Models {
-            id: models::SunspecID,
-            model1: models::Model1,
-            model213: models::models200::Model213,
-            model_end: models::ModelEnd,
-        }
-        impl Models {
-            fn new () -> Models {
-                Models {
-                    id: models::SunspecID::new(),
-                    model1: models::Model1::new(),
-                    model213: models::models200::Model213::new(),
-                    model_end: models::ModelEnd::new()
-                }
-            }
-        }
-
+    fn convert_model() {
         let mut new_model = Models::new();
 
-        new_model.model1.manufacturer.value = "Manufactor".to_string();
-        new_model.model1.model.value = "Model".to_string();
-        new_model.model1.serial_number.value = "ABCD1234".to_string();
-        new_model.model1.options.value = "Options".to_string();
+        new_model.models.push(Model::new(1));
+        new_model.models.push(Model::new(213));
+        new_model.models.push(Model::new(65535));
+        
+        new_model.models[0].update_data("Mn", &DataTypes::new_string("Manufactor teste"));
+        new_model.models[0].update_data("Md", &DataTypes::new_string("Model"));
+        new_model.models[0].update_data("Ver", &DataTypes::new_string("ABCD1234"));
+        new_model.models[0].update_data("Opt", &DataTypes::new_string("Options"));
     
-        new_model.model213.a = 12.5;
-        new_model.model213.hz = 60.05;
-        new_model.model213.pf = 0.92;
+        new_model.models[1].update_data("A", &DataTypes::new_f32(12.5));
+        new_model.models[1].update_data("Hz", &DataTypes::new_f32(60.05));
+        new_model.models[1].update_data("PF", &DataTypes::new_f32(0.92));
+    
+        new_model.compute_addr();
+
         let mut registers: Vec<u16> = new_model.id.into();
-        registers.extend(Vec::<u16>::from(new_model.model1));
-        registers.extend(Vec::<u16>::from(new_model.model213));
-        registers.extend(Vec::<u16>::from(new_model.model_end));
+        for model in new_model.models.iter() {
+            let model_tmp = model.clone();
+            registers.extend(Vec::<u16>::from(model_tmp));
+        }
+
         println!("{:?}", registers);
         assert_eq!(registers[72], 16712);
     }

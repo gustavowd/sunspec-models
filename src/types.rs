@@ -9,10 +9,13 @@ pub trait PointType<T> {
     fn encode(data: T) -> Vec<u16>;
 }
 
-#[derive(Debug, Clone)]
-pub struct FixString {
+#[derive(Debug, Clone, Copy)]
+pub struct Point<T: PointType<T>> {
+    pub name: &'static str,
+    pub offset: u16,
     pub length: u16,
-    pub value: String
+    pub write_access: bool,
+    pub value: T,
 }
 
 impl PointType<String> for String {
@@ -24,6 +27,23 @@ impl PointType<String> for String {
 
     fn encode(data: String) -> Vec<u16> {
         return to_u16_vector(data.as_bytes());
+    }
+}
+
+impl PointType<Point<String>> for Point<String> {
+    fn decode(data: Vec<u16>) -> Point<String> {
+        let bytes: Vec<u8> = to_be_bytes(data).try_into().unwrap();
+        let fbytes: Vec<u8> = bytes.iter().filter(|b| **b != 0).map(|b| *b).collect();
+        let data: Point<String> = Point { name: "", offset: 0, length: 0, write_access: false, value: String::from_utf8(fbytes).unwrap() };
+        return data;
+    }
+
+    fn encode(data: Point<String>) -> Vec<u16> {
+        let mut regs = String::encode(data.value);
+        for _i in 0..(data.length-(regs.len() as u16)){
+            regs.push(0);
+        }
+        regs
     }
 }
 
@@ -110,5 +130,61 @@ impl PointType<f32> for f32 {
 
     fn encode(data: f32) -> Vec<u16> {
         return to_u16_vector(&data.to_be_bytes());
+    }
+}
+
+#[derive(Debug, Clone)]
+pub enum DataTypes {
+    SunspecString(Point<String>),
+    SunspecU16(Point<u16>),
+    SunspecU32(Point<u32>),
+    SunspecU64(Point<u64>),
+    SunspecU128(Point<u128>),
+    SunspecI16(Point<i16>),
+    SunspecI32(Point<i32>),
+    SunspecI64(Point<i64>),
+    SunspecF32(Point<f32>),
+}
+
+pub trait SunspecTypes {
+    // This new function acts as a constructor
+    fn new_string (data: &str) -> Self;
+    fn new_u16 (data: u16) -> Self;
+    fn new_u32 (data: u32) -> Self;
+    fn new_u64 (data: u64) -> Self;
+    fn new_u128 (data: u128) -> Self;
+    fn new_i16 (data: i16) -> Self;
+    fn new_i32 (data: i32) -> Self;
+    fn new_i64 (data: i64) -> Self;
+    fn new_f32 (data: f32) -> Self;
+}
+
+impl SunspecTypes for DataTypes {
+    fn new_string (data: &str) -> DataTypes {
+        DataTypes::SunspecString(Point { name: "", offset: 0, length: 0, write_access: false, value: String::from(data) } )
+    }
+    fn new_u16 (data: u16) -> DataTypes {
+        DataTypes::SunspecU16(Point { name: "", offset: 0, length: 0, write_access: false, value: data } )
+    }
+    fn new_u32 (data: u32) -> DataTypes {
+        DataTypes::SunspecU32(Point { name: "", offset: 0, length: 0, write_access: false, value: data } )
+    }
+    fn new_u64 (data: u64) -> DataTypes {
+        DataTypes::SunspecU64(Point { name: "", offset: 0, length: 0, write_access: false, value: data } )
+    }
+    fn new_u128 (data: u128) -> DataTypes {
+        DataTypes::SunspecU128(Point { name: "", offset: 0, length: 0, write_access: false, value: data } )
+    }
+    fn new_i16 (data: i16) -> DataTypes {
+        DataTypes::SunspecI16(Point { name: "", offset: 0, length: 0, write_access: false, value: data } )
+    }
+    fn new_i32 (data: i32) -> DataTypes {
+        DataTypes::SunspecI32(Point { name: "", offset: 0, length: 0, write_access: false, value: data } )
+    }
+    fn new_i64 (data: i64) -> DataTypes {
+        DataTypes::SunspecI64(Point { name: "", offset: 0, length: 0, write_access: false, value: data } )
+    }
+    fn new_f32 (data: f32) -> DataTypes {
+        DataTypes::SunspecF32(Point { name: "", offset: 0, length: 0, write_access: false, value: data } )
     }
 }
