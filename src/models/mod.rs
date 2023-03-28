@@ -2,8 +2,113 @@ use std::io::Write;
 use std::mem;
 use crate::types::*;
 
+pub mod model1;
+pub mod model2;
+pub mod model3;
+pub mod model4;
+pub mod model5;
+pub mod model6;
+pub mod model7;
+pub mod model8;
+pub mod model9;
+pub mod model10;
+pub mod model11;
+pub mod model12;
+pub mod model13;
+pub mod model14;
+pub mod model15;
+pub mod model16;
+pub mod model17;
+pub mod model18;
+pub mod model19;
+pub mod model101;
+pub mod model102;
+pub mod model103;
+pub mod model111;
+pub mod model112;
+pub mod model113;
+pub mod model120;
+pub mod model121;
+pub mod model122;
+pub mod model123;
+pub mod model124;
+pub mod model125;
+pub mod model126;
+pub mod model127;
+pub mod model128;
+pub mod model129;
+pub mod model130;
+pub mod model131;
+pub mod model132;
+pub mod model133;
+pub mod model134;
+pub mod model135;
+pub mod model136;
+pub mod model137;
+pub mod model138;
+pub mod model139;
+pub mod model140;
+pub mod model141;
+pub mod model142;
+pub mod model143;
+pub mod model144;
+pub mod model145;
+pub mod model160;
+pub mod model201;
+pub mod model202;
+pub mod model203;
+pub mod model204;
+pub mod model211;
+pub mod model212;
+pub mod model213;
+pub mod model214;
+pub mod model220;
+pub mod model302;
+pub mod model303;
+pub mod model304;
+pub mod model305;
+pub mod model306;
+pub mod model307;
+pub mod model308;
+pub mod model401;
+pub mod model402;
+pub mod model403;
+pub mod model404;
+pub mod model501;
+pub mod model502;
+pub mod model601;
+pub mod model701;
+pub mod model702;
+pub mod model703;
+pub mod model704;
+pub mod model705;
+pub mod model706;
+pub mod model707;
+pub mod model708;
+pub mod model709;
+pub mod model710;
+pub mod model711;
+pub mod model712;
+pub mod model801;
+pub mod model802;
+pub mod model803;
+pub mod model804;
+pub mod model805;
+pub mod model806;
+pub mod model807;
+pub mod model808;
+pub mod model809;
+pub mod model63001;
+pub mod model63002;
+pub mod model64001;
+pub mod model64020;
+pub mod model64101;
+pub mod model64110;
+pub mod model64111;
+pub mod model64112;
 pub mod models200;
 pub mod models700;
+
 
 pub const SUNSPEC_INIT_ADDR: u16 = 40000;
 
@@ -75,24 +180,6 @@ impl Models {
     }
 }
 
-fn model1() -> Model {
-    let mut ret = Model {
-        start_addr: 0,
-        end_addr: 0,
-        model_number: 1,
-        qtd: 66,
-        data: Vec::new(),
-    };
-    ret.data.push(DataTypes::SunspecString(Point { name: "Mn", offset: 2, length: 16, write_access: false, value: String::new() } ));
-    ret.data.push(DataTypes::SunspecString(Point { name: "Md", offset: 18, length: 16, write_access: false, value: String::new() } ));
-    ret.data.push(DataTypes::SunspecString(Point { name: "Opt", offset: 34, length: 8, write_access: false, value: String::new() } ));
-    ret.data.push(DataTypes::SunspecString(Point { name: "Ver", offset: 42, length: 8, write_access: false, value: String::new() } ));
-    ret.data.push(DataTypes::SunspecString(Point { name: "SN", offset: 50, length: 16, write_access: false, value: String::new() } ));
-    ret.data.push(DataTypes::SunspecU16(Point { name: "DA", offset: 66, length: 1, write_access: true, value: 0 } ));
-    ret.data.push(DataTypes::SunspecU16(Point { name: "Pad", offset: 67, length: 1, write_access: false, value: 0 } ));
-    ret
-}
-
 fn model_end() -> Model {
     Model {
         start_addr: 0,
@@ -106,9 +193,110 @@ fn model_end() -> Model {
 impl SunspecModels for Model {
     fn new (model_number: u16) -> Model {
         match model_number {
-            1 => return model1(),
-            213 => return models200::model213(),
-            701 => return models700::model701(),
+            1 => model1::model1(),
+            2 => model2::model2(),
+            3 => model3::model3(),
+            4 => model4::model4(),
+            5 => model5::model5(),
+            6 => model6::model6(),
+            7 => model7::model7(),
+            8 => model8::model8(),
+            9 => model9::model9(),
+            10 => model10::model10(),
+            11 => model11::model11(),
+            12 => model12::model12(),
+            13 => model13::model13(),
+            14 => model14::model14(),
+            15 => model15::model15(),
+            16 => model16::model16(),
+            17 => model17::model17(),
+            18 => model18::model18(),
+            19 => model19::model19(),
+            101 => model101::model101(),
+            102 => model102::model102(),
+            103 => model103::model103(),
+            111 => model111::model111(),
+            112 => model112::model112(),
+            113 => model113::model113(),
+            120 => model120::model120(),
+            121 => model121::model121(),
+            122 => model122::model122(),
+            123 => model123::model123(),
+            124 => model124::model124(),
+            125 => model125::model125(),
+            126 => model126::model126(),
+            127 => model127::model127(),
+            128 => model128::model128(),
+            129 => model129::model129(),
+            130 => model130::model130(),
+            131 => model131::model131(),
+            132 => model132::model132(),
+            133 => model133::model133(),
+            134 => model134::model134(),
+            135 => model135::model135(),
+            136 => model136::model136(),
+            137 => model137::model137(),
+            138 => model138::model138(),
+            139 => model139::model139(),
+            140 => model140::model140(),
+            141 => model141::model141(),
+            142 => model142::model142(),
+            143 => model143::model143(),
+            144 => model144::model144(),
+            145 => model145::model145(),
+            160 => model160::model160(),
+            201 => model201::model201(),
+            202 => model202::model202(),
+            203 => model203::model203(),
+            204 => model204::model204(),
+            211 => model211::model211(),
+            212 => model212::model212(),
+            213 => model213::model213(),
+            214 => model214::model214(),
+            220 => model220::model220(),
+            302 => model302::model302(),
+            303 => model303::model303(),
+            304 => model304::model304(),
+            305 => model305::model305(),
+            306 => model306::model306(),
+            307 => model307::model307(),
+            308 => model308::model308(),
+            401 => model401::model401(),
+            402 => model402::model402(),
+            403 => model403::model403(),
+            404 => model404::model404(),
+            501 => model501::model501(),
+            502 => model502::model502(),
+            601 => model601::model601(),
+            701 => model701::model701(),
+            702 => model702::model702(),
+            703 => model703::model703(),
+            704 => model704::model704(),
+            705 => model705::model705(),
+            706 => model706::model706(),
+            707 => model707::model707(),
+            708 => model708::model708(),
+            709 => model709::model709(),
+            710 => model710::model710(),
+            711 => model711::model711(),
+            712 => model712::model712(),
+            801 => model801::model801(),
+            802 => model802::model802(),
+            803 => model803::model803(),
+            804 => model804::model804(),
+            805 => model805::model805(),
+            806 => model806::model806(),
+            807 => model807::model807(),
+            808 => model808::model808(),
+            809 => model809::model809(),
+            63001 => model63001::model63001(),
+            63002 => model63002::model63002(),
+            64001 => model64001::model64001(),
+            64020 => model64020::model64020(),
+            64101 => model64101::model64101(),
+            64110 => model64110::model64110(),
+            64111 => model64111::model64111(),
+            64112 => model64112::model64112(),
             _ => return model_end(),
         }
     }
