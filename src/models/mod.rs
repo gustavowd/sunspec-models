@@ -137,7 +137,9 @@ pub trait SunspecModels {
     // This new function acts as a constructor
     fn new (model_number: u16) -> Self;
     fn update_data(&mut self, point: &str, value: &DataTypes);
+    fn update_data_by_index(&mut self, index: usize, value: &DataTypes);
     fn get_data(&mut self, point: &str) -> DataTypes;
+    fn get_data_index(&mut self, point: &str) -> usize;
     fn get_string(&mut self, point: &str) -> Option<String>;
     fn get_f32(&mut self, point: &str) -> Option<f32>;
     fn get_u16(&mut self, point: &str) -> Option<u16>;
@@ -302,8 +304,8 @@ impl SunspecModels for Model {
     }
 
     fn update_data(&mut self, point: &str, value: &DataTypes) {
-        for data in self.data.iter_mut() {
-            match data {
+        for data_tmp in self.data.iter_mut() {
+            match data_tmp {
                 DataTypes::SunspecString(data) => {
                     if data.name.contains(point) && (data.name.len() == point.len()){
                         match value {
@@ -380,52 +382,111 @@ impl SunspecModels for Model {
         }
     }
 
+    fn update_data_by_index(&mut self, index: usize, value: &DataTypes) {
+        match &mut self.data[index] {
+            DataTypes::SunspecString(data) => {
+                match value {
+                    DataTypes::SunspecString(update_value) =>  data.value = update_value.value.clone(),
+                    _ => {},
+                };
+            },
+            DataTypes::SunspecF32(data) => {
+                match value {
+                    DataTypes::SunspecF32(update_value) =>  data.value = update_value.value,
+                    _ => {},
+                };
+            },
+            DataTypes::SunspecU16(data) => {
+                match value {
+                    DataTypes::SunspecU16(update_value) =>  data.value = update_value.value,
+                    _ => {},
+                };
+            },
+            DataTypes::SunspecU32(data) => {
+                match value {
+                    DataTypes::SunspecU32(update_value) =>  data.value = update_value.value,
+                    _ => {},
+                };
+            },
+            DataTypes::SunspecU64(data) => {
+                match value {
+                    DataTypes::SunspecU64(update_value) =>  data.value = update_value.value,
+                    _ => {},
+                };
+            },
+            DataTypes::SunspecU128(data) => {
+                match value {
+                    DataTypes::SunspecU128(update_value) =>  data.value = update_value.value,
+                    _ => {},
+                };
+            },
+            DataTypes::SunspecI16(data) => {
+                match value {
+                    DataTypes::SunspecI16(update_value) =>  data.value = update_value.value,
+                    _ => {},
+                };
+            },
+            DataTypes::SunspecI32(data) => {
+                match value {
+                    DataTypes::SunspecI32(update_value) =>  data.value = update_value.value,
+                    _ => {},
+                };
+            },
+            DataTypes::SunspecI64(data) => {
+                match value {
+                    DataTypes::SunspecI64(update_value) =>  data.value = update_value.value,
+                    _ => {},
+                };
+            },
+        }
+    }
+
     fn get_data(&mut self, point: &str) -> DataTypes {
-        for data in self.data.iter() {
-            match data {
-                DataTypes::SunspecString(data2) => {
-                    if data2.name.contains(point){
-                        return data.clone();
+        for data_tmp in self.data.iter() {
+            match data_tmp {
+                DataTypes::SunspecString(data) => {
+                    if data.name.contains(point) && (data.name.len() == point.len()) {
+                        return data_tmp.clone();
                     }
                 },
-                DataTypes::SunspecU16(data2) => {
-                    if data2.name.contains(point){
-                        return data.clone();
+                DataTypes::SunspecU16(data) => {
+                    if data.name.contains(point) && (data.name.len() == point.len()) {
+                        return data_tmp.clone();
                     }
                 },
-                DataTypes::SunspecU32(data2) => {
-                    if data2.name.contains(point){
-                        return data.clone();
+                DataTypes::SunspecU32(data) => {
+                    if data.name.contains(point) && (data.name.len() == point.len()) {
+                        return data_tmp.clone();
                     }
                 },
-                DataTypes::SunspecU64(data2) => {
-                    if data2.name.contains(point){
-                        return data.clone();
+                DataTypes::SunspecU64(data) => {
+                    if data.name.contains(point) && (data.name.len() == point.len()) {
+                        return data_tmp.clone();
                     }
                 },
-                DataTypes::SunspecU128(data2) => {
-                    if data2.name.contains(point){
-                        return data.clone();
+                DataTypes::SunspecU128(data) => {
+                    if data.name.contains(point) && (data.name.len() == point.len()) {
+                        return data_tmp.clone();
                     }
                 },
-                DataTypes::SunspecI16(data2) => {
-                    if data2.name.contains(point){
-                        return data.clone();
+                DataTypes::SunspecI16(data) => {
+                    if data.name.contains(point) && (data.name.len() == point.len()) {
+                        return data_tmp.clone();
                     }
                 },
-                DataTypes::SunspecI32(data2) => {
-                    if data2.name.contains(point){
-                        return data.clone();
+                DataTypes::SunspecI32(data) => {
+                    if data.name.contains(point) && (data.name.len() == point.len()) {
+                        return data_tmp.clone();
                     }
                 },
-                DataTypes::SunspecI64(data2) => {
-                    if data2.name.contains(point){
-                        return data.clone();
+                DataTypes::SunspecI64(data) => {
+                    if data.name.contains(point) && (data.name.len() == point.len()) {
+                        return data_tmp.clone();
                     }
                 },
-                DataTypes::SunspecF32(data2) => {
-                    if data2.name.contains(point){
-                        return data.clone();
+                DataTypes::SunspecF32(data) => {
+                    if data.name.contains(point) && (data.name.len() == point.len()) {
+                        return data_tmp.clone();
                     }
                 }
             };
@@ -433,12 +494,67 @@ impl SunspecModels for Model {
         return DataTypes::SunspecU16(Point { name: "", offset: 0, length: 1, write_access: false, value: 0 } )
     }
 
+    fn get_data_index(&mut self, point: &str) -> usize {
+        let mut idx = 0;
+        for data_tmp in self.data.iter() {
+            match data_tmp {
+                DataTypes::SunspecString(data) => {
+                    if data.name.contains(point) && (data.name.len() == point.len()) {
+                        return idx;
+                    }
+                },
+                DataTypes::SunspecU16(data) => {
+                    if data.name.contains(point) && (data.name.len() == point.len()) {
+                        return idx;
+                    }
+                },
+                DataTypes::SunspecU32(data) => {
+                    if data.name.contains(point) && (data.name.len() == point.len()) {
+                        return idx;
+                    }
+                },
+                DataTypes::SunspecU64(data) => {
+                    if data.name.contains(point) && (data.name.len() == point.len()) {
+                        return idx;
+                    }
+                },
+                DataTypes::SunspecU128(data) => {
+                    if data.name.contains(point) && (data.name.len() == point.len()) {
+                        return idx;
+                    }
+                },
+                DataTypes::SunspecI16(data) => {
+                    if data.name.contains(point) && (data.name.len() == point.len()) {
+                        return idx;
+                    }
+                },
+                DataTypes::SunspecI32(data) => {
+                    if data.name.contains(point) && (data.name.len() == point.len()) {
+                        return idx;
+                    }
+                },
+                DataTypes::SunspecI64(data) => {
+                    if data.name.contains(point) && (data.name.len() == point.len()) {
+                        return idx;
+                    }
+                },
+                DataTypes::SunspecF32(data) => {
+                    if data.name.contains(point) && (data.name.len() == point.len()) {
+                        return idx;
+                    }
+                }
+            };
+            idx += 1;
+        }
+        return idx;
+    }
+
     fn get_f32(&mut self, point: &str) -> Option<f32> {
-        for data in self.data.iter() {
-            match data {
-                DataTypes::SunspecF32(data2) => {
-                    if data2.name.contains(point){
-                        return Some(data2.value);
+        for data_tmp in self.data.iter() {
+            match data_tmp {
+                DataTypes::SunspecF32(data) => {
+                    if data.name.contains(point) && (data.name.len() == point.len()) {
+                        return Some(data.value);
                     }
                 },
                 _ => return None,
@@ -448,11 +564,11 @@ impl SunspecModels for Model {
     }
 
     fn get_string(&mut self, point: &str) -> Option<String> {
-        for data in self.data.iter() {
-            match data {
-                DataTypes::SunspecString(data2) => {
-                    if data2.name.contains(point){
-                        return Some(data2.value.clone());
+        for data_tmp in self.data.iter() {
+            match data_tmp {
+                DataTypes::SunspecString(data) => {
+                    if data.name.contains(point) && (data.name.len() == point.len()) {
+                        return Some(data.value.clone());
                     }
                 },
                 _ => return None,
@@ -462,11 +578,11 @@ impl SunspecModels for Model {
     }
 
     fn get_u16(&mut self, point: &str) -> Option<u16> {
-        for data in self.data.iter() {
-            match data {
-                DataTypes::SunspecU16(data2) => {
-                    if data2.name.contains(point){
-                        return Some(data2.value);
+        for data_tmp in self.data.iter() {
+            match data_tmp {
+                DataTypes::SunspecU16(data) => {
+                    if data.name.contains(point) && (data.name.len() == point.len()) {
+                        return Some(data.value);
                     }
                 },
                 _ => return None,
@@ -476,11 +592,11 @@ impl SunspecModels for Model {
     }
 
     fn get_u32(&mut self, point: &str) -> Option<u32> {
-        for data in self.data.iter() {
-            match data {
-                DataTypes::SunspecU32(data2) => {
-                    if data2.name.contains(point){
-                        return Some(data2.value);
+        for data_tmp in self.data.iter() {
+            match data_tmp {
+                DataTypes::SunspecU32(data) => {
+                    if data.name.contains(point) && (data.name.len() == point.len()) {
+                        return Some(data.value);
                     }
                 },
                 _ => return None,
@@ -490,11 +606,11 @@ impl SunspecModels for Model {
     }
 
     fn get_u64(&mut self, point: &str) -> Option<u64> {
-        for data in self.data.iter() {
-            match data {
-                DataTypes::SunspecU64(data2) => {
-                    if data2.name.contains(point){
-                        return Some(data2.value);
+        for data_tmp in self.data.iter() {
+            match data_tmp {
+                DataTypes::SunspecU64(data) => {
+                    if data.name.contains(point) && (data.name.len() == point.len()) {
+                        return Some(data.value);
                     }
                 },
                 _ => return None,
@@ -504,11 +620,11 @@ impl SunspecModels for Model {
     }
 
     fn get_u128(&mut self, point: &str) -> Option<u128> {
-        for data in self.data.iter() {
-            match data {
-                DataTypes::SunspecU128(data2) => {
-                    if data2.name.contains(point){
-                        return Some(data2.value);
+        for data_tmp in self.data.iter() {
+            match data_tmp {
+                DataTypes::SunspecU128(data) => {
+                    if data.name.contains(point) && (data.name.len() == point.len()) {
+                        return Some(data.value);
                     }
                 },
                 _ => return None,
@@ -518,11 +634,11 @@ impl SunspecModels for Model {
     }
 
     fn get_i16(&mut self, point: &str) -> Option<i16> {
-        for data in self.data.iter() {
-            match data {
-                DataTypes::SunspecI16(data2) => {
-                    if data2.name.contains(point){
-                        return Some(data2.value);
+        for data_tmp in self.data.iter() {
+            match data_tmp {
+                DataTypes::SunspecI16(data) => {
+                    if data.name.contains(point) && (data.name.len() == point.len()) {
+                        return Some(data.value);
                     }
                 },
                 _ => return None,
@@ -532,11 +648,11 @@ impl SunspecModels for Model {
     }
 
     fn get_i32(&mut self, point: &str) -> Option<i32> {
-        for data in self.data.iter() {
-            match data {
-                DataTypes::SunspecI32(data2) => {
-                    if data2.name.contains(point){
-                        return Some(data2.value);
+        for data_tmp in self.data.iter() {
+            match data_tmp {
+                DataTypes::SunspecI32(data) => {
+                    if data.name.contains(point) && (data.name.len() == point.len()) {
+                        return Some(data.value);
                     }
                 },
                 _ => return None,
@@ -546,11 +662,11 @@ impl SunspecModels for Model {
     }
 
     fn get_i64(&mut self, point: &str) -> Option<i64> {
-        for data in self.data.iter() {
-            match data {
-                DataTypes::SunspecI64(data2) => {
-                    if data2.name.contains(point){
-                        return Some(data2.value);
+        for data_tmp in self.data.iter() {
+            match data_tmp {
+                DataTypes::SunspecI64(data) => {
+                    if data.name.contains(point) && (data.name.len() == point.len()) {
+                        return Some(data.value);
                     }
                 },
                 _ => return None,

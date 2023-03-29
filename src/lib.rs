@@ -38,6 +38,23 @@ mod tests {
     }
 
     #[test]
+    fn update_model() {
+        let mut new_model = Models::new();
+
+        new_model.models.push(Model::new(213));
+
+        new_model.models[0].update_data("A", &DataTypes::new_f32(12.5));
+        new_model.models[0].update_data("Hz", &DataTypes::new_f32(60.05));
+        new_model.models[0].update_data("PF", &DataTypes::new_f32(0.92));
+
+        assert_eq!(new_model.models[0].get_f32("Hz").unwrap(), 60.05);
+
+        let a_idx = new_model.models[0].get_data_index("Hz");
+        new_model.models[0].update_data_by_index(a_idx, &DataTypes::new_f32(60.08));
+        assert_eq!(new_model.models[0].get_f32("Hz").unwrap(), 60.08);
+    }
+
+    #[test]
     fn convert_sunspec_id() {
         let id_vec: Vec<u16> = vec![21365, 28243];
 
