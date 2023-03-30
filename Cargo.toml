@@ -1,6 +1,6 @@
 [package]
 name = "sunspec-models"
-description = "Sunspec Models library - may be use with any modbus library"
+description = "Sunspec Models library - may be used with any modbus library"
 version = "0.5.0"
 authors = [
     "Gustavo Weber Denardin <gustavo.denardin@gmail.com>"
