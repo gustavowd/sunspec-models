@@ -16,14 +16,16 @@ mod tests {
         new_model.models.push(Model::new(213));
         new_model.models.push(Model::new(65535));
         
-        new_model.models[0].update_data("Mn", &DataTypes::new_string("Manufactor teste"));
-        new_model.models[0].update_data("Md", &DataTypes::new_string("Model"));
-        new_model.models[0].update_data("Ver", &DataTypes::new_string("ABCD1234"));
-        new_model.models[0].update_data("Opt", &DataTypes::new_string("Options"));
+        let idx = new_model.get_model_index(1).unwrap();
+        new_model.models[idx].update_data("Mn", &DataTypes::new_string("Manufactor teste"));
+        new_model.models[idx].update_data("Md", &DataTypes::new_string("Model"));
+        new_model.models[idx].update_data("Ver", &DataTypes::new_string("ABCD1234"));
+        new_model.models[idx].update_data("Opt", &DataTypes::new_string("Options"));
     
-        new_model.models[1].update_data("A", &DataTypes::new_f32(12.5));
-        new_model.models[1].update_data("Hz", &DataTypes::new_f32(60.05));
-        new_model.models[1].update_data("PF", &DataTypes::new_f32(0.92));
+        let idx = new_model.get_model_index(213).unwrap();
+        new_model.models[idx].update_data("A", &DataTypes::new_f32(12.5));
+        new_model.models[idx].update_data("Hz", &DataTypes::new_f32(60.05));
+        new_model.models[idx].update_data("PF", &DataTypes::new_f32(0.92));
     
         new_model.compute_addr();
 

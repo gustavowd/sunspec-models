@@ -138,17 +138,17 @@ pub trait SunspecModels {
     fn new (model_number: u16) -> Self;
     fn update_data(&mut self, point: &str, value: &DataTypes);
     fn update_data_by_index(&mut self, index: usize, value: &DataTypes);
-    fn get_data(&mut self, point: &str) -> DataTypes;
-    fn get_data_index(&mut self, point: &str) -> usize;
-    fn get_string(&mut self, point: &str) -> Option<String>;
-    fn get_f32(&mut self, point: &str) -> Option<f32>;
-    fn get_u16(&mut self, point: &str) -> Option<u16>;
-    fn get_u32(&mut self, point: &str) -> Option<u32>;
-    fn get_u64(&mut self, point: &str) -> Option<u64>;
-    fn get_u128(&mut self, point: &str) -> Option<u128>;
-    fn get_i16(&mut self, point: &str) -> Option<i16>;
-    fn get_i32(&mut self, point: &str) -> Option<i32>;
-    fn get_i64(&mut self, point: &str) -> Option<i64>;
+    fn get_data(&self, point: &str) -> DataTypes;
+    fn get_data_index(&self, point: &str) -> usize;
+    fn get_string(&self, point: &str) -> Option<String>;
+    fn get_f32(&self, point: &str) -> Option<f32>;
+    fn get_u16(&self, point: &str) -> Option<u16>;
+    fn get_u32(&self, point: &str) -> Option<u32>;
+    fn get_u64(&self, point: &str) -> Option<u64>;
+    fn get_u128(&self, point: &str) -> Option<u128>;
+    fn get_i16(&self, point: &str) -> Option<i16>;
+    fn get_i32(&self, point: &str) -> Option<i32>;
+    fn get_i64(&self, point: &str) -> Option<i64>;
 }
 
 
@@ -166,6 +166,18 @@ impl Models {
     pub fn new () -> Models {
         Models { id: SunspecID::new(), models: Vec::new() }
     }
+
+    pub fn get_model_index(&self, model_number: u16) -> Option<usize> {
+        let mut idx = 0;
+        for model in self.models.iter() {
+            if model_number == model.model_number {
+                return Some(idx);
+            }
+            idx += 1;
+        }
+        None
+    }
+
     pub fn compute_addr (&mut self) {
         let mut idx = 0;
         let mut end_addr = 0;
@@ -441,7 +453,7 @@ impl SunspecModels for Model {
         }
     }
 
-    fn get_data(&mut self, point: &str) -> DataTypes {
+    fn get_data(&self, point: &str) -> DataTypes {
         for data_tmp in self.data.iter() {
             match data_tmp {
                 DataTypes::SunspecString(data) => {
@@ -494,7 +506,7 @@ impl SunspecModels for Model {
         return DataTypes::SunspecU16(Point { name: "", offset: 0, length: 1, write_access: false, value: 0 } )
     }
 
-    fn get_data_index(&mut self, point: &str) -> usize {
+    fn get_data_index(&self, point: &str) -> usize {
         let mut idx = 0;
         for data_tmp in self.data.iter() {
             match data_tmp {
@@ -549,7 +561,7 @@ impl SunspecModels for Model {
         return idx;
     }
 
-    fn get_f32(&mut self, point: &str) -> Option<f32> {
+    fn get_f32(&self, point: &str) -> Option<f32> {
         for data_tmp in self.data.iter() {
             match data_tmp {
                 DataTypes::SunspecF32(data) => {
@@ -563,7 +575,7 @@ impl SunspecModels for Model {
         return None
     }
 
-    fn get_string(&mut self, point: &str) -> Option<String> {
+    fn get_string(&self, point: &str) -> Option<String> {
         for data_tmp in self.data.iter() {
             match data_tmp {
                 DataTypes::SunspecString(data) => {
@@ -577,7 +589,7 @@ impl SunspecModels for Model {
         return None
     }
 
-    fn get_u16(&mut self, point: &str) -> Option<u16> {
+    fn get_u16(&self, point: &str) -> Option<u16> {
         for data_tmp in self.data.iter() {
             match data_tmp {
                 DataTypes::SunspecU16(data) => {
@@ -591,7 +603,7 @@ impl SunspecModels for Model {
         return None
     }
 
-    fn get_u32(&mut self, point: &str) -> Option<u32> {
+    fn get_u32(&self, point: &str) -> Option<u32> {
         for data_tmp in self.data.iter() {
             match data_tmp {
                 DataTypes::SunspecU32(data) => {
@@ -605,7 +617,7 @@ impl SunspecModels for Model {
         return None
     }
 
-    fn get_u64(&mut self, point: &str) -> Option<u64> {
+    fn get_u64(&self, point: &str) -> Option<u64> {
         for data_tmp in self.data.iter() {
             match data_tmp {
                 DataTypes::SunspecU64(data) => {
@@ -619,7 +631,7 @@ impl SunspecModels for Model {
         return None
     }
 
-    fn get_u128(&mut self, point: &str) -> Option<u128> {
+    fn get_u128(&self, point: &str) -> Option<u128> {
         for data_tmp in self.data.iter() {
             match data_tmp {
                 DataTypes::SunspecU128(data) => {
@@ -633,7 +645,7 @@ impl SunspecModels for Model {
         return None
     }
 
-    fn get_i16(&mut self, point: &str) -> Option<i16> {
+    fn get_i16(&self, point: &str) -> Option<i16> {
         for data_tmp in self.data.iter() {
             match data_tmp {
                 DataTypes::SunspecI16(data) => {
@@ -647,7 +659,7 @@ impl SunspecModels for Model {
         return None
     }
 
-    fn get_i32(&mut self, point: &str) -> Option<i32> {
+    fn get_i32(&self, point: &str) -> Option<i32> {
         for data_tmp in self.data.iter() {
             match data_tmp {
                 DataTypes::SunspecI32(data) => {
@@ -661,7 +673,7 @@ impl SunspecModels for Model {
         return None
     }
 
-    fn get_i64(&mut self, point: &str) -> Option<i64> {
+    fn get_i64(&self, point: &str) -> Option<i64> {
         for data_tmp in self.data.iter() {
             match data_tmp {
                 DataTypes::SunspecI64(data) => {

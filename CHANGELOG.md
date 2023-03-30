@@ -26,3 +26,7 @@
 ## v0.5.0 (29/03/2022)
 
 - Added functions update_data_by_index() and get_data_index() for models.
+
+## v0.5.1 (30/03/2022)
+
+- Added functions get_model_index().
