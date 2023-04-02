@@ -15,9 +15,9 @@ pub fn model64020() -> Model {
     ret.data.push(DataTypes::SunspecI16(Point { name: "Aux4Tmp", offset: 4+2, length: 1, write_access: false, value: 0 } ));
     ret.data.push(DataTypes::SunspecI16(Point { name: "ProbeTmp", offset: 6+2, length: 1, write_access: false, value: 0 } ));
     ret.data.push(DataTypes::SunspecI16(Point { name: "MainTmp", offset: 5+2, length: 1, write_access: false, value: 0 } ));
-    ret.data.push(DataTypes::SunspecU16(Point { name: "SensorV_SF", offset: 7+2, length: 1, write_access: false, value: 0 } ));
-    ret.data.push(DataTypes::SunspecU16(Point { name: "SensorA_SF", offset: 8+2, length: 1, write_access: false, value: 0 } ));
-    ret.data.push(DataTypes::SunspecU16(Point { name: "SensorHz_SF", offset: 9+2, length: 1, write_access: false, value: 0 } ));
+    ret.data.push(DataTypes::SunspecI16(Point { name: "SensorV_SF", offset: 7+2, length: 1, write_access: false, value: 0 } ));
+    ret.data.push(DataTypes::SunspecI16(Point { name: "SensorA_SF", offset: 8+2, length: 1, write_access: false, value: 0 } ));
+    ret.data.push(DataTypes::SunspecI16(Point { name: "SensorHz_SF", offset: 9+2, length: 1, write_access: false, value: 0 } ));
     ret.data.push(DataTypes::SunspecI16(Point { name: "Sensor1Voltage", offset: 10+2, length: 1, write_access: false, value: 0 } ));
     ret.data.push(DataTypes::SunspecI16(Point { name: "Sensor2Voltage", offset: 11+2, length: 1, write_access: false, value: 0 } ));
     ret.data.push(DataTypes::SunspecI16(Point { name: "Sensor3Voltage", offset: 12+2, length: 1, write_access: false, value: 0 } ));

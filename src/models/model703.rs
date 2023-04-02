@@ -17,8 +17,8 @@ pub fn model703() -> Model {
     ret.data.push(DataTypes::SunspecU32(Point { name: "ESRndTms", offset: 9+2, length: 1, write_access: true, value: 0 } ));
     ret.data.push(DataTypes::SunspecU32(Point { name: "ESRmpTms", offset: 11+2, length: 1, write_access: true, value: 0 } ));
     ret.data.push(DataTypes::SunspecU32(Point { name: "ESDlyRemTms", offset: 13+2, length: 1, write_access: false, value: 0 } ));
-    ret.data.push(DataTypes::SunspecU16(Point { name: "V_SF", offset: 15+2, length: 1, write_access: false, value: 0 } ));
-    ret.data.push(DataTypes::SunspecU16(Point { name: "Hz_SF", offset: 16+2, length: 1, write_access: false, value: 0 } ));
+    ret.data.push(DataTypes::SunspecI16(Point { name: "V_SF", offset: 15+2, length: 1, write_access: false, value: 0 } ));
+    ret.data.push(DataTypes::SunspecI16(Point { name: "Hz_SF", offset: 16+2, length: 1, write_access: false, value: 0 } ));
     
     ret
 }

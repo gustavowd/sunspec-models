@@ -28,16 +28,16 @@ pub fn model121() -> Model {
     ret.data.push(DataTypes::SunspecU16(Point { name: "MaxRmpRte", offset: 17+2, length: 1, write_access: true, value: 0 } ));
     ret.data.push(DataTypes::SunspecU16(Point { name: "ECPNomHz", offset: 18+2, length: 1, write_access: true, value: 0 } ));
     ret.data.push(DataTypes::SunspecU16(Point { name: "ConnPh", offset: 19+2, length: 1, write_access: true, value: 0 } ));
-    ret.data.push(DataTypes::SunspecU16(Point { name: "WMax_SF", offset: 20+2, length: 1, write_access: false, value: 0 } ));
-    ret.data.push(DataTypes::SunspecU16(Point { name: "VRef_SF", offset: 21+2, length: 1, write_access: false, value: 0 } ));
-    ret.data.push(DataTypes::SunspecU16(Point { name: "VRefOfs_SF", offset: 22+2, length: 1, write_access: false, value: 0 } ));
-    ret.data.push(DataTypes::SunspecU16(Point { name: "VMinMax_SF", offset: 23+2, length: 1, write_access: false, value: 0 } ));
-    ret.data.push(DataTypes::SunspecU16(Point { name: "VAMax_SF", offset: 24+2, length: 1, write_access: false, value: 0 } ));
-    ret.data.push(DataTypes::SunspecU16(Point { name: "VArMax_SF", offset: 25+2, length: 1, write_access: false, value: 0 } ));
-    ret.data.push(DataTypes::SunspecU16(Point { name: "WGra_SF", offset: 26+2, length: 1, write_access: false, value: 0 } ));
-    ret.data.push(DataTypes::SunspecU16(Point { name: "PFMin_SF", offset: 27+2, length: 1, write_access: false, value: 0 } ));
-    ret.data.push(DataTypes::SunspecU16(Point { name: "MaxRmpRte_SF", offset: 28+2, length: 1, write_access: false, value: 0 } ));
-    ret.data.push(DataTypes::SunspecU16(Point { name: "ECPNomHz_SF", offset: 29+2, length: 1, write_access: false, value: 0 } ));
+    ret.data.push(DataTypes::SunspecI16(Point { name: "WMax_SF", offset: 20+2, length: 1, write_access: false, value: 0 } ));
+    ret.data.push(DataTypes::SunspecI16(Point { name: "VRef_SF", offset: 21+2, length: 1, write_access: false, value: 0 } ));
+    ret.data.push(DataTypes::SunspecI16(Point { name: "VRefOfs_SF", offset: 22+2, length: 1, write_access: false, value: 0 } ));
+    ret.data.push(DataTypes::SunspecI16(Point { name: "VMinMax_SF", offset: 23+2, length: 1, write_access: false, value: 0 } ));
+    ret.data.push(DataTypes::SunspecI16(Point { name: "VAMax_SF", offset: 24+2, length: 1, write_access: false, value: 0 } ));
+    ret.data.push(DataTypes::SunspecI16(Point { name: "VArMax_SF", offset: 25+2, length: 1, write_access: false, value: 0 } ));
+    ret.data.push(DataTypes::SunspecI16(Point { name: "WGra_SF", offset: 26+2, length: 1, write_access: false, value: 0 } ));
+    ret.data.push(DataTypes::SunspecI16(Point { name: "PFMin_SF", offset: 27+2, length: 1, write_access: false, value: 0 } ));
+    ret.data.push(DataTypes::SunspecI16(Point { name: "MaxRmpRte_SF", offset: 28+2, length: 1, write_access: false, value: 0 } ));
+    ret.data.push(DataTypes::SunspecI16(Point { name: "ECPNomHz_SF", offset: 29+2, length: 1, write_access: false, value: 0 } ));
     
     ret
 }

@@ -9,11 +9,11 @@ pub fn model64111() -> Model {
         data: Vec::new(),
     };
     ret.data.push(DataTypes::SunspecU16(Point { name: "Port", offset: 0+2, length: 1, write_access: false, value: 0 } ));
-    ret.data.push(DataTypes::SunspecU16(Point { name: "V_SF", offset: 1+2, length: 1, write_access: false, value: 0 } ));
-    ret.data.push(DataTypes::SunspecU16(Point { name: "A_SF", offset: 2+2, length: 1, write_access: false, value: 0 } ));
-    ret.data.push(DataTypes::SunspecU16(Point { name: "P_SF", offset: 3+2, length: 1, write_access: false, value: 0 } ));
-    ret.data.push(DataTypes::SunspecU16(Point { name: "AH_SF", offset: 4+2, length: 1, write_access: false, value: 0 } ));
-    ret.data.push(DataTypes::SunspecU16(Point { name: "KWH_SF", offset: 5+2, length: 1, write_access: false, value: 0 } ));
+    ret.data.push(DataTypes::SunspecI16(Point { name: "V_SF", offset: 1+2, length: 1, write_access: false, value: 0 } ));
+    ret.data.push(DataTypes::SunspecI16(Point { name: "A_SF", offset: 2+2, length: 1, write_access: false, value: 0 } ));
+    ret.data.push(DataTypes::SunspecI16(Point { name: "P_SF", offset: 3+2, length: 1, write_access: false, value: 0 } ));
+    ret.data.push(DataTypes::SunspecI16(Point { name: "AH_SF", offset: 4+2, length: 1, write_access: false, value: 0 } ));
+    ret.data.push(DataTypes::SunspecI16(Point { name: "KWH_SF", offset: 5+2, length: 1, write_access: false, value: 0 } ));
     ret.data.push(DataTypes::SunspecU16(Point { name: "BattV", offset: 6+2, length: 1, write_access: false, value: 0 } ));
     ret.data.push(DataTypes::SunspecU16(Point { name: "ArrayV", offset: 7+2, length: 1, write_access: false, value: 0 } ));
     ret.data.push(DataTypes::SunspecU16(Point { name: "OutputA", offset: 8+2, length: 1, write_access: false, value: 0 } ));

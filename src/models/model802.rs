@@ -52,18 +52,18 @@ pub fn model802() -> Model {
     ret.data.push(DataTypes::SunspecI16(Point { name: "ReqW", offset: 47+2, length: 1, write_access: false, value: 0 } ));
     ret.data.push(DataTypes::SunspecU16(Point { name: "SetOp", offset: 48+2, length: 1, write_access: true, value: 0 } ));
     ret.data.push(DataTypes::SunspecU16(Point { name: "SetInvState", offset: 49+2, length: 1, write_access: true, value: 0 } ));
-    ret.data.push(DataTypes::SunspecU16(Point { name: "AHRtg_SF", offset: 50+2, length: 1, write_access: false, value: 0 } ));
-    ret.data.push(DataTypes::SunspecU16(Point { name: "WHRtg_SF", offset: 51+2, length: 1, write_access: false, value: 0 } ));
-    ret.data.push(DataTypes::SunspecU16(Point { name: "WChaDisChaMax_SF", offset: 52+2, length: 1, write_access: false, value: 0 } ));
-    ret.data.push(DataTypes::SunspecU16(Point { name: "DisChaRte_SF", offset: 53+2, length: 1, write_access: false, value: 0 } ));
-    ret.data.push(DataTypes::SunspecU16(Point { name: "SoC_SF", offset: 54+2, length: 1, write_access: false, value: 0 } ));
-    ret.data.push(DataTypes::SunspecU16(Point { name: "DoD_SF", offset: 55+2, length: 1, write_access: false, value: 0 } ));
-    ret.data.push(DataTypes::SunspecU16(Point { name: "SoH_SF", offset: 56+2, length: 1, write_access: false, value: 0 } ));
-    ret.data.push(DataTypes::SunspecU16(Point { name: "V_SF", offset: 57+2, length: 1, write_access: false, value: 0 } ));
-    ret.data.push(DataTypes::SunspecU16(Point { name: "CellV_SF", offset: 58+2, length: 1, write_access: false, value: 0 } ));
-    ret.data.push(DataTypes::SunspecU16(Point { name: "A_SF", offset: 59+2, length: 1, write_access: false, value: 0 } ));
-    ret.data.push(DataTypes::SunspecU16(Point { name: "AMax_SF", offset: 60+2, length: 1, write_access: false, value: 0 } ));
-    ret.data.push(DataTypes::SunspecU16(Point { name: "W_SF", offset: 61+2, length: 1, write_access: false, value: 0 } ));
+    ret.data.push(DataTypes::SunspecI16(Point { name: "AHRtg_SF", offset: 50+2, length: 1, write_access: false, value: 0 } ));
+    ret.data.push(DataTypes::SunspecI16(Point { name: "WHRtg_SF", offset: 51+2, length: 1, write_access: false, value: 0 } ));
+    ret.data.push(DataTypes::SunspecI16(Point { name: "WChaDisChaMax_SF", offset: 52+2, length: 1, write_access: false, value: 0 } ));
+    ret.data.push(DataTypes::SunspecI16(Point { name: "DisChaRte_SF", offset: 53+2, length: 1, write_access: false, value: 0 } ));
+    ret.data.push(DataTypes::SunspecI16(Point { name: "SoC_SF", offset: 54+2, length: 1, write_access: false, value: 0 } ));
+    ret.data.push(DataTypes::SunspecI16(Point { name: "DoD_SF", offset: 55+2, length: 1, write_access: false, value: 0 } ));
+    ret.data.push(DataTypes::SunspecI16(Point { name: "SoH_SF", offset: 56+2, length: 1, write_access: false, value: 0 } ));
+    ret.data.push(DataTypes::SunspecI16(Point { name: "V_SF", offset: 57+2, length: 1, write_access: false, value: 0 } ));
+    ret.data.push(DataTypes::SunspecI16(Point { name: "CellV_SF", offset: 58+2, length: 1, write_access: false, value: 0 } ));
+    ret.data.push(DataTypes::SunspecI16(Point { name: "A_SF", offset: 59+2, length: 1, write_access: false, value: 0 } ));
+    ret.data.push(DataTypes::SunspecI16(Point { name: "AMax_SF", offset: 60+2, length: 1, write_access: false, value: 0 } ));
+    ret.data.push(DataTypes::SunspecI16(Point { name: "W_SF", offset: 61+2, length: 1, write_access: false, value: 0 } ));
     
     ret
 }

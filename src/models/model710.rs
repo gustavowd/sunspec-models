@@ -13,8 +13,8 @@ pub fn model710() -> Model {
     ret.data.push(DataTypes::SunspecU16(Point { name: "AdptCrvRslt", offset: 2+2, length: 1, write_access: false, value: 0 } ));
     ret.data.push(DataTypes::SunspecU16(Point { name: "NPt", offset: 3+2, length: 1, write_access: false, value: 0 } ));
     ret.data.push(DataTypes::SunspecU16(Point { name: "NCrvSet", offset: 4+2, length: 1, write_access: false, value: 0 } ));
-    ret.data.push(DataTypes::SunspecU16(Point { name: "Hz_SF", offset: 5+2, length: 1, write_access: false, value: 0 } ));
-    ret.data.push(DataTypes::SunspecU16(Point { name: "Tms_SF", offset: 6+2, length: 1, write_access: false, value: 0 } ));
+    ret.data.push(DataTypes::SunspecI16(Point { name: "Hz_SF", offset: 5+2, length: 1, write_access: false, value: 0 } ));
+    ret.data.push(DataTypes::SunspecI16(Point { name: "Tms_SF", offset: 6+2, length: 1, write_access: false, value: 0 } ));
     ret.data.push(DataTypes::SunspecU16(Point { name: "DERTripHF.Crv.ReadOnly", offset: 7+2, length: 1, write_access: false, value: 0 } ));
     ret.data.push(DataTypes::SunspecU16(Point { name: "DERTripHF.Crv.MustTrip.ActPt", offset: 8+2, length: 1, write_access: true, value: 0 } ));
     ret.data.push(DataTypes::SunspecU32(Point { name: "DERTripHF.Crv.MustTrip.Pt.Hz", offset: 9+2, length: 1, write_access: true, value: 0 } ));

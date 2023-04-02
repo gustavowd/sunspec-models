@@ -8,10 +8,10 @@ pub fn model63001() -> Model {
         qtd: 152,
         data: Vec::new(),
     };
-    ret.data.push(DataTypes::SunspecU16(Point { name: "sunssf_1", offset: 0+2, length: 1, write_access: false, value: 0 } ));
-    ret.data.push(DataTypes::SunspecU16(Point { name: "sunssf_2", offset: 1+2, length: 1, write_access: false, value: 0 } ));
-    ret.data.push(DataTypes::SunspecU16(Point { name: "sunssf_3", offset: 2+2, length: 1, write_access: false, value: 0 } ));
-    ret.data.push(DataTypes::SunspecU16(Point { name: "sunssf_4", offset: 3+2, length: 1, write_access: false, value: 0 } ));
+    ret.data.push(DataTypes::SunspecI16(Point { name: "sunssf_1", offset: 0+2, length: 1, write_access: false, value: 0 } ));
+    ret.data.push(DataTypes::SunspecI16(Point { name: "sunssf_2", offset: 1+2, length: 1, write_access: false, value: 0 } ));
+    ret.data.push(DataTypes::SunspecI16(Point { name: "sunssf_3", offset: 2+2, length: 1, write_access: false, value: 0 } ));
+    ret.data.push(DataTypes::SunspecI16(Point { name: "sunssf_4", offset: 3+2, length: 1, write_access: false, value: 0 } ));
     ret.data.push(DataTypes::SunspecI16(Point { name: "int16_1", offset: 4+2, length: 1, write_access: false, value: 0 } ));
     ret.data.push(DataTypes::SunspecI16(Point { name: "int16_2", offset: 5+2, length: 1, write_access: false, value: 0 } ));
     ret.data.push(DataTypes::SunspecI16(Point { name: "int16_3", offset: 6+2, length: 1, write_access: false, value: 0 } ));
@@ -60,9 +60,9 @@ pub fn model63001() -> Model {
     ret.data.push(DataTypes::SunspecF32(Point { name: "float32_u", offset: 96+2, length: 2, write_access: false, value: 0.0 } ));
     ret.data.push(DataTypes::SunspecString(Point { name: "string", offset: 98+2, length: 16, write_access: true, value: String::new() } ));
     ret.data.push(DataTypes::SunspecString(Point { name: "string_u", offset: 114+2, length: 16, write_access: false, value: String::new() } ));
-    ret.data.push(DataTypes::SunspecU16(Point { name: "sunssf_5", offset: 130+2, length: 1, write_access: false, value: 0 } ));
-    ret.data.push(DataTypes::SunspecU16(Point { name: "sunssf_6", offset: 131+2, length: 1, write_access: false, value: 0 } ));
-    ret.data.push(DataTypes::SunspecU16(Point { name: "sunssf_7", offset: 132+2, length: 1, write_access: false, value: 0 } ));
+    ret.data.push(DataTypes::SunspecI16(Point { name: "sunssf_5", offset: 130+2, length: 1, write_access: false, value: 0 } ));
+    ret.data.push(DataTypes::SunspecI16(Point { name: "sunssf_6", offset: 131+2, length: 1, write_access: false, value: 0 } ));
+    ret.data.push(DataTypes::SunspecI16(Point { name: "sunssf_7", offset: 132+2, length: 1, write_access: false, value: 0 } ));
     ret.data.push(DataTypes::SunspecU16(Point { name: "pad_1", offset: 133+2, length: 1, write_access: false, value: 0 } ));
     
     ret

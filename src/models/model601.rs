@@ -17,7 +17,7 @@ pub fn model601() -> Model {
     ret.data.push(DataTypes::SunspecI32(Point { name: "GlblAzCtl", offset: 20+2, length: 1, write_access: true, value: 0 } ));
     ret.data.push(DataTypes::SunspecU16(Point { name: "GlblCtl", offset: 22+2, length: 1, write_access: true, value: 0 } ));
     ret.data.push(DataTypes::SunspecU16(Point { name: "GlblAlm", offset: 23+2, length: 1, write_access: false, value: 0 } ));
-    ret.data.push(DataTypes::SunspecU16(Point { name: "Dgr_SF", offset: 24+2, length: 1, write_access: false, value: 0 } ));
+    ret.data.push(DataTypes::SunspecI16(Point { name: "Dgr_SF", offset: 24+2, length: 1, write_access: false, value: 0 } ));
     ret.data.push(DataTypes::SunspecU16(Point { name: "N", offset: 25+2, length: 1, write_access: false, value: 0 } ));
     
     ret

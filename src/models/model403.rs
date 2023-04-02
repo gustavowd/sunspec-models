@@ -8,9 +8,9 @@ pub fn model403() -> Model {
         qtd: 24,
         data: Vec::new(),
     };
-    ret.data.push(DataTypes::SunspecU16(Point { name: "DCA_SF", offset: 0+2, length: 1, write_access: false, value: 0 } ));
-    ret.data.push(DataTypes::SunspecU16(Point { name: "DCAhr_SF", offset: 1+2, length: 1, write_access: false, value: 0 } ));
-    ret.data.push(DataTypes::SunspecU16(Point { name: "DCV_SF", offset: 2+2, length: 1, write_access: false, value: 0 } ));
+    ret.data.push(DataTypes::SunspecI16(Point { name: "DCA_SF", offset: 0+2, length: 1, write_access: false, value: 0 } ));
+    ret.data.push(DataTypes::SunspecI16(Point { name: "DCAhr_SF", offset: 1+2, length: 1, write_access: false, value: 0 } ));
+    ret.data.push(DataTypes::SunspecI16(Point { name: "DCV_SF", offset: 2+2, length: 1, write_access: false, value: 0 } ));
     ret.data.push(DataTypes::SunspecU16(Point { name: "DCAMax", offset: 3+2, length: 1, write_access: false, value: 0 } ));
     ret.data.push(DataTypes::SunspecU16(Point { name: "N", offset: 4+2, length: 1, write_access: false, value: 0 } ));
     ret.data.push(DataTypes::SunspecU32(Point { name: "Evt", offset: 5+2, length: 1, write_access: false, value: 0 } ));
@@ -19,8 +19,8 @@ pub fn model403() -> Model {
     ret.data.push(DataTypes::SunspecU32(Point { name: "DCAhr", offset: 10+2, length: 1, write_access: false, value: 0 } ));
     ret.data.push(DataTypes::SunspecI16(Point { name: "DCV", offset: 12+2, length: 1, write_access: false, value: 0 } ));
     ret.data.push(DataTypes::SunspecI16(Point { name: "Tmp", offset: 13+2, length: 1, write_access: false, value: 0 } ));
-    ret.data.push(DataTypes::SunspecU16(Point { name: "InDCA_SF", offset: 14+2, length: 1, write_access: false, value: 0 } ));
-    ret.data.push(DataTypes::SunspecU16(Point { name: "InDCAhr_SF", offset: 15+2, length: 1, write_access: false, value: 0 } ));
+    ret.data.push(DataTypes::SunspecI16(Point { name: "InDCA_SF", offset: 14+2, length: 1, write_access: false, value: 0 } ));
+    ret.data.push(DataTypes::SunspecI16(Point { name: "InDCAhr_SF", offset: 15+2, length: 1, write_access: false, value: 0 } ));
     
     ret
 }

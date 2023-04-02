@@ -51,7 +51,7 @@ pub fn model64110() -> Model {
     ret.data.push(DataTypes::SunspecU16(Point { name: "Time_second", offset: 275+2, length: 1, write_access: false, value: 0 } ));
     ret.data.push(DataTypes::SunspecI16(Point { name: "Battery_temp", offset: 276+2, length: 1, write_access: false, value: 0 } ));
     ret.data.push(DataTypes::SunspecI16(Point { name: "Ambient_temp", offset: 277+2, length: 1, write_access: false, value: 0 } ));
-    ret.data.push(DataTypes::SunspecU16(Point { name: "Temp_SF", offset: 278+2, length: 1, write_access: false, value: 0 } ));
+    ret.data.push(DataTypes::SunspecI16(Point { name: "Temp_SF", offset: 278+2, length: 1, write_access: false, value: 0 } ));
     ret.data.push(DataTypes::SunspecU16(Point { name: "AXS_Error", offset: 279+2, length: 1, write_access: false, value: 0 } ));
     ret.data.push(DataTypes::SunspecU16(Point { name: "AXS_Status", offset: 280+2, length: 1, write_access: false, value: 0 } ));
     ret.data.push(DataTypes::SunspecU16(Point { name: "AXS_Spare", offset: 281+2, length: 1, write_access: false, value: 0 } ));
