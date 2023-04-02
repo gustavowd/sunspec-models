@@ -756,56 +756,56 @@ impl From<(Vec<u16>, u16, u16, &Model)> for Model {
             for data in model1.data.iter_mut() {
                 match data {
                     DataTypes::SunspecString(data) => {
-                        if offset == data.offset {
+                        if (offset == data.offset) && (data.write_access == true) {
                             data.value = Point::<String>::decode(from.0.clone()).value;
                             offset += data.offset;
                             qtd -= data.length;
                         }
                     },
                     DataTypes::SunspecU16(data) => {
-                        if offset == data.offset {
+                        if (offset == data.offset) && (data.write_access == true) {
                             data.value = u16::decode(from.0.clone());
                             offset += data.offset;
                             qtd -= data.length;
                         }
                     },
                     DataTypes::SunspecU32(data) => {
-                        if offset == data.offset {
+                        if (offset == data.offset) && (data.write_access == true) {
                             data.value = u32::decode(from.0.clone());
                             offset += data.offset;
                             qtd -= data.length;
                         }
                     },
                     DataTypes::SunspecU64(data) => {
-                        if offset == data.offset {
+                        if (offset == data.offset) && (data.write_access == true) {
                             data.value = u64::decode(from.0.clone());
                             offset += data.offset;
                             qtd -= data.length;
                         }
                     },
                     DataTypes::SunspecU128(data) => {
-                        if offset == data.offset {
+                        if (offset == data.offset) && (data.write_access == true) {
                             data.value = u128::decode(from.0.clone());
                             offset += data.offset;
                             qtd -= data.length;
                         }
                     },
                     DataTypes::SunspecI16(data) => {
-                        if offset == data.offset {
+                        if (offset == data.offset) && (data.write_access == true) {
                             data.value = i16::decode(from.0.clone());
                             offset += data.offset;
                             qtd -= data.length;
                         }
                     },
                     DataTypes::SunspecI32(data) => {
-                        if offset == data.offset {
+                        if (offset == data.offset) && (data.write_access == true) {
                             data.value = i32::decode(from.0.clone());
                             offset += data.offset;
                             qtd -= data.length;
                         }
                     },
                     DataTypes::SunspecI64(data) => {
-                        if offset == data.offset {
+                        if (offset == data.offset) && (data.write_access == true) {
                             data.value = i64::decode(from.0.clone());
                             offset += data.offset;
                             qtd -= data.length;
