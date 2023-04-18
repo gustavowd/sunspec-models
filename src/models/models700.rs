@@ -32,7 +32,7 @@ pub enum InvState {
     SHUTTINGDOWN = 5,
     FAULT = 6,
     STANDBY = 7,
-    PAD=0xFFFF
+    PAD=0x8000
 }
 
 #[derive(Debug, Default, Clone, Copy)]
@@ -42,6 +42,6 @@ pub enum ConnState {
     #[default]
     DISCONNECTED = 0,
     CONNECTED = 1,
-    PAD=0xFFFF
+    PAD=0x8000
 }
 

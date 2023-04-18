@@ -50,13 +50,13 @@ pub fn model702() -> Model {
     ret.data.push(DataTypes::SunspecU16(Point { name: "PFOvrExt", offset: 40+2, length: 1, write_access: true, value: 0xFFFF } ));
     ret.data.push(DataTypes::SunspecU16(Point { name: "PFUndExt", offset: 41+2, length: 1, write_access: true, value: 0xFFFF } ));
     ret.data.push(DataTypes::SunspecU16(Point { name: "IntIslandCat", offset: 42+2, length: 1, write_access: true, value: 0xFFFF } ));
-    ret.data.push(DataTypes::SunspecI16(Point { name: "W_SF", offset: 43+2, length: 1, write_access: false, value: -1i16 } ));
-    ret.data.push(DataTypes::SunspecI16(Point { name: "PF_SF", offset: 44+2, length: 1, write_access: false, value: 1i16 } ));
-    ret.data.push(DataTypes::SunspecI16(Point { name: "VA_SF", offset: 45+2, length: 1, write_access: false, value: 1i16 } ));
-    ret.data.push(DataTypes::SunspecI16(Point { name: "Var_SF", offset: 46+2, length: 1, write_access: false, value: 1i16 } ));
-    ret.data.push(DataTypes::SunspecI16(Point { name: "V_SF", offset: 47+2, length: 1, write_access: false, value: 1i16 } ));
-    ret.data.push(DataTypes::SunspecI16(Point { name: "A_SF", offset: 48+2, length: 1, write_access: false, value: 1i16 } ));
-    ret.data.push(DataTypes::SunspecI16(Point { name: "S_SF", offset: 49+2, length: 1, write_access: false, value: 1i16 } ));
+    ret.data.push(DataTypes::SunspecI16(Point { name: "W_SF", offset: 43+2, length: 1, write_access: false, value: -32768i16 } ));
+    ret.data.push(DataTypes::SunspecI16(Point { name: "PF_SF", offset: 44+2, length: 1, write_access: false, value: -32768i16 } ));
+    ret.data.push(DataTypes::SunspecI16(Point { name: "VA_SF", offset: 45+2, length: 1, write_access: false, value: -32768i16 } ));
+    ret.data.push(DataTypes::SunspecI16(Point { name: "Var_SF", offset: 46+2, length: 1, write_access: false, value: -32768i16 } ));
+    ret.data.push(DataTypes::SunspecI16(Point { name: "V_SF", offset: 47+2, length: 1, write_access: false, value: -32768i16 } ));
+    ret.data.push(DataTypes::SunspecI16(Point { name: "A_SF", offset: 48+2, length: 1, write_access: false, value: -32768i16 } ));
+    ret.data.push(DataTypes::SunspecI16(Point { name: "S_SF", offset: 49+2, length: 1, write_access: false, value: -32768i16 } ));
     
     ret
 }

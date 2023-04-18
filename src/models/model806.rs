@@ -8,7 +8,7 @@ pub fn model806() -> Model {
         qtd: 2,
         data: Vec::new(),
     };
-    ret.data.push(DataTypes::SunspecU16(Point { name: "BatTBD", offset: 0+2, length: 1, write_access: false, value: 0 } ));
+    ret.data.push(DataTypes::SunspecU16(Point { name: "BatTBD", offset: 0+2, length: 1, write_access: false, value: 0xFFFF } ));
     
     ret
 }

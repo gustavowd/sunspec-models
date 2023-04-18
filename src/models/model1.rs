@@ -13,8 +13,8 @@ pub fn model1() -> Model {
     ret.data.push(DataTypes::SunspecString(Point { name: "Opt", offset: 32+2, length: 8, write_access: false, value: String::new() } ));
     ret.data.push(DataTypes::SunspecString(Point { name: "Vr", offset: 40+2, length: 8, write_access: false, value: String::new() } ));
     ret.data.push(DataTypes::SunspecString(Point { name: "SN", offset: 48+2, length: 16, write_access: false, value: String::new() } ));
-    ret.data.push(DataTypes::SunspecU16(Point { name: "DA", offset: 64+2, length: 1, write_access: true, value: 0 } ));
-    ret.data.push(DataTypes::SunspecU16(Point { name: "Pad", offset: 65+2, length: 1, write_access: false, value: 0 } ));
+    ret.data.push(DataTypes::SunspecU16(Point { name: "DA", offset: 64+2, length: 1, write_access: true, value: 0xFFFF } ));
+    ret.data.push(DataTypes::SunspecU16(Point { name: "Pad", offset: 65+2, length: 1, write_access: false, value: 0x8000 } ));
     
     ret
 }
