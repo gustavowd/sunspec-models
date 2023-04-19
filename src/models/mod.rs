@@ -578,7 +578,7 @@ impl SunspecModels for Model {
                         return Some(data.value);
                     }
                 },
-                _ => return None,
+                _ => {},
             }
         }
         return None
@@ -601,7 +601,7 @@ impl SunspecModels for Model {
                         return Some(data.value.clone());
                     }
                 },
-                _ => return None,
+                _ => {},
             }
         }
         return None
@@ -624,7 +624,7 @@ impl SunspecModels for Model {
                         return Some(data.value);
                     }
                 },
-                _ => return None,
+                _ => {},
             }
         }
         return None
@@ -647,7 +647,7 @@ impl SunspecModels for Model {
                         return Some(data.value);
                     }
                 },
-                _ => return None,
+                _ => {},
             }
         }
         return None
@@ -670,7 +670,7 @@ impl SunspecModels for Model {
                         return Some(data.value);
                     }
                 },
-                _ => return None,
+                _ => {},
             }
         }
         return None
@@ -693,7 +693,7 @@ impl SunspecModels for Model {
                         return Some(data.value);
                     }
                 },
-                _ => return None,
+                _ => {},
             }
         }
         return None
@@ -716,7 +716,7 @@ impl SunspecModels for Model {
                         return Some(data.value);
                     }
                 },
-                _ => return None,
+                _ => {},
             }
         }
         return None
@@ -739,7 +739,7 @@ impl SunspecModels for Model {
                         return Some(data.value);
                     }
                 },
-                _ => return None,
+                _ => {},
             }
         }
         return None
@@ -762,7 +762,7 @@ impl SunspecModels for Model {
                         return Some(data.value);
                     }
                 },
-                _ => return None,
+                _ => {},
             }
         }
         return None
