@@ -158,6 +158,7 @@ pub trait SunspecModels {
     fn get_i32_by_index(&self, idx: usize) -> Option<i32>;
     fn get_i64(&self, point: &str) -> Option<i64>;
     fn get_i64_by_index(&self, idx: usize) -> Option<i64>;
+    fn print(&self);
 }
 
 
@@ -774,6 +775,22 @@ impl SunspecModels for Model {
                 return Some(data.value);
             },
             _ => return None,
+        }
+    }
+
+    fn print(&self) {
+        for data in self.data.iter() {
+            match data {
+                DataTypes::SunspecF32(data) => println!("{}: {}", data.name, data.value),
+                DataTypes::SunspecU16(data) => println!("{}: {}", data.name, data.value),
+                DataTypes::SunspecU32(data) => println!("{}: {}", data.name, data.value),
+                DataTypes::SunspecU64(data) => println!("{}: {}", data.name, data.value),
+                DataTypes::SunspecU128(data) => println!("{}: {}", data.name, data.value),
+                DataTypes::SunspecI16(data) => println!("{}: {}", data.name, data.value),
+                DataTypes::SunspecI32(data) => println!("{}: {}", data.name, data.value),
+                DataTypes::SunspecI64(data) => println!("{}: {}", data.name, data.value),
+                DataTypes::SunspecString(data) => println!("{}: {}", data.name, data.value.clone()),
+            }
         }
     }
 }
