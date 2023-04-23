@@ -779,6 +779,7 @@ impl SunspecModels for Model {
     }
 
     fn print(&self) {
+        println!("Model {}:", self.model_number);
         for data in self.data.iter() {
             match data {
                 DataTypes::SunspecF32(data) => println!("{}: {}", data.name, data.value),
@@ -792,6 +793,7 @@ impl SunspecModels for Model {
                 DataTypes::SunspecString(data) => println!("{}: {}", data.name, data.value.clone()),
             }
         }
+        println!(" ");
     }
 }
 
