@@ -6,6 +6,7 @@ pub fn model64101() -> Model {
         end_addr: 0,
         model_number: 64101,
         qtd: 7,
+        update: false,
         data: Vec::new(),
     };
     ret.data.push(DataTypes::SunspecU16(Point { name: "Eltek_Country_Code", offset: 0+2, length: 1, write_access: false, value: 0xFFFF } ));

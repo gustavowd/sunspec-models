@@ -6,6 +6,7 @@ pub fn model11() -> Model {
         end_addr: 0,
         model_number: 11,
         qtd: 13,
+        update: false,
         data: Vec::new(),
     };
     ret.data.push(DataTypes::SunspecU16(Point { name: "Spd", offset: 0+2, length: 1, write_access: false, value: 0xFFFF } ));

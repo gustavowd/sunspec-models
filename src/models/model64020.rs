@@ -6,6 +6,7 @@ pub fn model64020() -> Model {
         end_addr: 0,
         model_number: 64020,
         qtd: 46,
+        update: false,
         data: Vec::new(),
     };
     ret.data.push(DataTypes::SunspecI16(Point { name: "Aux0Tmp", offset: 0+2, length: 1, write_access: false, value: -32768i16 } ));

@@ -6,6 +6,7 @@ pub fn model304() -> Model {
         end_addr: 0,
         model_number: 304,
         qtd: 6,
+        update: false,
         data: Vec::new(),
     };
     ret.data.push(DataTypes::SunspecI32(Point { name: "Inclx", offset: 0+2, length: 1, write_access: false, value: -2147483648i32 } ));

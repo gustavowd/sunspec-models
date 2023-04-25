@@ -6,6 +6,7 @@ pub fn model122() -> Model {
         end_addr: 0,
         model_number: 122,
         qtd: 44,
+        update: false,
         data: Vec::new(),
     };
     ret.data.push(DataTypes::SunspecU16(Point { name: "PVConn", offset: 0+2, length: 1, write_access: false, value: 0xFFFF } ));

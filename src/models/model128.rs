@@ -6,6 +6,7 @@ pub fn model128() -> Model {
         end_addr: 0,
         model_number: 128,
         qtd: 14,
+        update: false,
         data: Vec::new(),
     };
     ret.data.push(DataTypes::SunspecU16(Point { name: "ArGraMod", offset: 0+2, length: 1, write_access: true, value: 0xFFFF } ));

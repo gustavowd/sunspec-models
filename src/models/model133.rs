@@ -6,6 +6,7 @@ pub fn model133() -> Model {
         end_addr: 0,
         model_number: 133,
         qtd: 66,
+        update: false,
         data: Vec::new(),
     };
     ret.data.push(DataTypes::SunspecU32(Point { name: "ActSchd", offset: 0+2, length: 2, write_access: true, value: 0xFFFFFFFF } ));

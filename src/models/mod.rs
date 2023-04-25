@@ -123,6 +123,7 @@ pub struct Model {
     pub end_addr: u16,
     pub model_number: u16,
     pub qtd: u16,
+    pub update: bool,
     pub data: Vec<DataTypes>,
 }
 
@@ -210,6 +211,7 @@ fn model_end() -> Model {
         model_number: 0xFFFF,
         qtd: 0,
         end_addr: 0,
+        update: false,
         data: Vec::new(),
     }
 }

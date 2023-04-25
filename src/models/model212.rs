@@ -6,6 +6,7 @@ pub fn model212() -> Model {
         end_addr: 0,
         model_number: 212,
         qtd: 124,
+        update: false,
         data: Vec::new(),
     };
     ret.data.push(DataTypes::SunspecF32(Point { name: "A", offset: 0+2, length: 2, write_access: false, value: f32::NAN } ));

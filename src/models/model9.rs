@@ -6,6 +6,7 @@ pub fn model9() -> Model {
         end_addr: 0,
         model_number: 9,
         qtd: 93,
+        update: false,
         data: Vec::new(),
     };
     ret.data.push(DataTypes::SunspecU16(Point { name: "CertUID", offset: 0+2, length: 1, write_access: true, value: 0xFFFF } ));

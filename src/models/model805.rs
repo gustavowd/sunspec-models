@@ -6,6 +6,7 @@ pub fn model805() -> Model {
         end_addr: 0,
         model_number: 805,
         qtd: 46,
+        update: false,
         data: Vec::new(),
     };
     ret.data.push(DataTypes::SunspecU16(Point { name: "StrIdx", offset: 0+2, length: 1, write_access: false, value: 0xFFFF } ));

@@ -6,6 +6,7 @@ pub fn model64110() -> Model {
         end_addr: 0,
         model_number: 64110,
         qtd: 282,
+        update: false,
         data: Vec::new(),
     };
     ret.data.push(DataTypes::SunspecU16(Point { name: "MajorFWRev", offset: 0+2, length: 1, write_access: false, value: 0xFFFF } ));

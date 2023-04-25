@@ -6,6 +6,7 @@ pub fn model303() -> Model {
         end_addr: 0,
         model_number: 303,
         qtd: 2,
+        update: false,
         data: Vec::new(),
     };
     ret.data.push(DataTypes::SunspecI16(Point { name: "TmpBOM", offset: 0+2, length: 1, write_access: false, value: -32768i16 } ));

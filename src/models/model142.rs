@@ -6,6 +6,7 @@ pub fn model142() -> Model {
         end_addr: 0,
         model_number: 142,
         qtd: 60,
+        update: false,
         data: Vec::new(),
     };
     ret.data.push(DataTypes::SunspecU16(Point { name: "ActCrv", offset: 0+2, length: 1, write_access: true, value: 0xFFFF } ));

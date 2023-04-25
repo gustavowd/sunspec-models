@@ -6,6 +6,7 @@ pub fn model121() -> Model {
         end_addr: 0,
         model_number: 121,
         qtd: 30,
+        update: false,
         data: Vec::new(),
     };
     ret.data.push(DataTypes::SunspecU16(Point { name: "WMax", offset: 0+2, length: 1, write_access: true, value: 0xFFFF } ));
