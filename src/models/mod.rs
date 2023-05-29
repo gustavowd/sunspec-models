@@ -924,6 +924,9 @@ impl From<(Vec<u16>, u16, u16, &Model)> for Model {
                     },
                     _ => {}
                 }
+                if qtd == 0 {
+                    break;
+                }
             }
         }
         model1
