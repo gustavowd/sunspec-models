@@ -871,7 +871,7 @@ impl From<(Vec<u16>, u16, u16, &Model)> for Model {
                     DataTypes::SunspecString(data) => {
                         if (offset == data.offset) && (data.write_access == true) {
                             data.value = Point::<String>::decode(regs.clone()).value;
-                            offset += data.offset;
+                            offset += data.length;
                             qtd -= data.length;
                             for _i in 0..data.length {
                                 regs.remove(0);
@@ -881,7 +881,7 @@ impl From<(Vec<u16>, u16, u16, &Model)> for Model {
                     DataTypes::SunspecU16(data) => {
                         if (offset == data.offset) && (data.write_access == true) {
                             data.value = u16::decode(regs.clone());
-                            offset += data.offset;
+                            offset += data.length;
                             qtd -= data.length;
                             for _i in 0..data.length {
                                 regs.remove(0);
@@ -891,7 +891,7 @@ impl From<(Vec<u16>, u16, u16, &Model)> for Model {
                     DataTypes::SunspecU32(data) => {
                         if (offset == data.offset) && (data.write_access == true) {
                             data.value = u32::decode(regs.clone());
-                            offset += data.offset;
+                            offset += data.length;
                             qtd -= data.length;
                             for _i in 0..data.length {
                                 regs.remove(0);
@@ -901,7 +901,7 @@ impl From<(Vec<u16>, u16, u16, &Model)> for Model {
                     DataTypes::SunspecU64(data) => {
                         if (offset == data.offset) && (data.write_access == true) {
                             data.value = u64::decode(regs.clone());
-                            offset += data.offset;
+                            offset += data.length;
                             qtd -= data.length;
                             for _i in 0..data.length {
                                 regs.remove(0);
@@ -911,7 +911,7 @@ impl From<(Vec<u16>, u16, u16, &Model)> for Model {
                     DataTypes::SunspecU128(data) => {
                         if (offset == data.offset) && (data.write_access == true) {
                             data.value = u128::decode(regs.clone());
-                            offset += data.offset;
+                            offset += data.length;
                             qtd -= data.length;
                             for _i in 0..data.length {
                                 regs.remove(0);
@@ -921,7 +921,7 @@ impl From<(Vec<u16>, u16, u16, &Model)> for Model {
                     DataTypes::SunspecI16(data) => {
                         if (offset == data.offset) && (data.write_access == true) {
                             data.value = i16::decode(regs.clone());
-                            offset += data.offset;
+                            offset += data.length;
                             qtd -= data.length;
                             for _i in 0..data.length {
                                 regs.remove(0);
@@ -931,7 +931,7 @@ impl From<(Vec<u16>, u16, u16, &Model)> for Model {
                     DataTypes::SunspecI32(data) => {
                         if (offset == data.offset) && (data.write_access == true) {
                             data.value = i32::decode(regs.clone());
-                            offset += data.offset;
+                            offset += data.length;
                             qtd -= data.length;
                             for _i in 0..data.length {
                                 regs.remove(0);
@@ -941,7 +941,7 @@ impl From<(Vec<u16>, u16, u16, &Model)> for Model {
                     DataTypes::SunspecI64(data) => {
                         if (offset == data.offset) && (data.write_access == true) {
                             data.value = i64::decode(regs.clone());
-                            offset += data.offset;
+                            offset += data.length;
                             qtd -= data.length;
                             for _i in 0..data.length {
                                 regs.remove(0);
