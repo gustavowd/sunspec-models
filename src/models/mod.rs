@@ -863,63 +863,89 @@ impl From<(Vec<u16>, u16, u16, &Model)> for Model {
         let mut offset = from.1 - model1.start_addr;
         let mut qtd = from.2;
 
+        let mut regs = from.0.clone();
+
         while qtd > 0 {
             for data in model1.data.iter_mut() {
                 match data {
                     DataTypes::SunspecString(data) => {
                         if (offset == data.offset) && (data.write_access == true) {
-                            data.value = Point::<String>::decode(from.0.clone()).value;
+                            data.value = Point::<String>::decode(regs.clone()).value;
                             offset += data.offset;
                             qtd -= data.length;
+                            for _i in 0..data.length {
+                                regs.remove(0);
+                            }
                         }
                     },
                     DataTypes::SunspecU16(data) => {
                         if (offset == data.offset) && (data.write_access == true) {
-                            data.value = u16::decode(from.0.clone());
+                            data.value = u16::decode(regs.clone());
                             offset += data.offset;
                             qtd -= data.length;
+                            for _i in 0..data.length {
+                                regs.remove(0);
+                            }
                         }
                     },
                     DataTypes::SunspecU32(data) => {
                         if (offset == data.offset) && (data.write_access == true) {
-                            data.value = u32::decode(from.0.clone());
+                            data.value = u32::decode(regs.clone());
                             offset += data.offset;
                             qtd -= data.length;
+                            for _i in 0..data.length {
+                                regs.remove(0);
+                            }
                         }
                     },
                     DataTypes::SunspecU64(data) => {
                         if (offset == data.offset) && (data.write_access == true) {
-                            data.value = u64::decode(from.0.clone());
+                            data.value = u64::decode(regs.clone());
                             offset += data.offset;
                             qtd -= data.length;
+                            for _i in 0..data.length {
+                                regs.remove(0);
+                            }
                         }
                     },
                     DataTypes::SunspecU128(data) => {
                         if (offset == data.offset) && (data.write_access == true) {
-                            data.value = u128::decode(from.0.clone());
+                            data.value = u128::decode(regs.clone());
                             offset += data.offset;
                             qtd -= data.length;
+                            for _i in 0..data.length {
+                                regs.remove(0);
+                            }
                         }
                     },
                     DataTypes::SunspecI16(data) => {
                         if (offset == data.offset) && (data.write_access == true) {
-                            data.value = i16::decode(from.0.clone());
+                            data.value = i16::decode(regs.clone());
                             offset += data.offset;
                             qtd -= data.length;
+                            for _i in 0..data.length {
+                                regs.remove(0);
+                            }
                         }
                     },
                     DataTypes::SunspecI32(data) => {
                         if (offset == data.offset) && (data.write_access == true) {
-                            data.value = i32::decode(from.0.clone());
+                            data.value = i32::decode(regs.clone());
                             offset += data.offset;
                             qtd -= data.length;
+                            for _i in 0..data.length {
+                                regs.remove(0);
+                            }
                         }
                     },
                     DataTypes::SunspecI64(data) => {
                         if (offset == data.offset) && (data.write_access == true) {
-                            data.value = i64::decode(from.0.clone());
+                            data.value = i64::decode(regs.clone());
                             offset += data.offset;
                             qtd -= data.length;
+                            for _i in 0..data.length {
+                                regs.remove(0);
+                            }
                         }
                     },
                     _ => {}
