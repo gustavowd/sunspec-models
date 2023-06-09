@@ -30,7 +30,7 @@ pub fn model702() -> Model {
     ret.data.push(DataTypes::SunspecU16(Point { name: "ReactSusceptRtg", offset: 18+2, length: 1, write_access: false, value: 0xFFFF } ));
     ret.data.push(DataTypes::SunspecU16(Point { name: "NorOpCatRtg", offset: 19+2, length: 1, write_access: false, value: 0xFFFF } ));
     ret.data.push(DataTypes::SunspecU16(Point { name: "AbnOpCatRtg", offset: 20+2, length: 1, write_access: false, value: 0xFFFF } ));
-    ret.data.push(DataTypes::SunspecU32(Point { name: "CtrlModes", offset: 21+2, length: 1, write_access: false, value: 0xFFFFFFFF } ));
+    ret.data.push(DataTypes::SunspecU32(Point { name: "CtrlModes", offset: 21+2, length: 2, write_access: false, value: 0xFFFFFFFF } ));
     ret.data.push(DataTypes::SunspecU16(Point { name: "IntIslandCatRtg", offset: 23+2, length: 1, write_access: false, value: 0xFFFF } ));
     ret.data.push(DataTypes::SunspecU16(Point { name: "WMax", offset: 24+2, length: 1, write_access: true, value: 0xFFFF } ));
     ret.data.push(DataTypes::SunspecU16(Point { name: "WMaxOvrExt", offset: 25+2, length: 1, write_access: true, value: 0xFFFF } ));

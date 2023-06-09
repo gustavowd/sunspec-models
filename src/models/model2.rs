@@ -14,11 +14,11 @@ pub fn model2() -> Model {
     ret.data.push(DataTypes::SunspecU16(Point { name: "UN", offset: 2+2, length: 1, write_access: false, value: 0xFFFF } ));
     ret.data.push(DataTypes::SunspecU16(Point { name: "St", offset: 3+2, length: 1, write_access: false, value: 0xFFFF } ));
     ret.data.push(DataTypes::SunspecU16(Point { name: "StVnd", offset: 4+2, length: 1, write_access: false, value: 0xFFFF } ));
-    ret.data.push(DataTypes::SunspecU32(Point { name: "Evt", offset: 5+2, length: 1, write_access: false, value: 0xFFFFFFFF } ));
-    ret.data.push(DataTypes::SunspecU32(Point { name: "EvtVnd", offset: 7+2, length: 1, write_access: false, value: 0xFFFFFFFF } ));
+    ret.data.push(DataTypes::SunspecU32(Point { name: "Evt", offset: 5+2, length: 2, write_access: false, value: 0xFFFFFFFF } ));
+    ret.data.push(DataTypes::SunspecU32(Point { name: "EvtVnd", offset: 7+2, length: 2, write_access: false, value: 0xFFFFFFFF } ));
     ret.data.push(DataTypes::SunspecU16(Point { name: "Ctl", offset: 9+2, length: 1, write_access: false, value: 0xFFFF } ));
-    ret.data.push(DataTypes::SunspecU32(Point { name: "CtlVnd", offset: 10+2, length: 1, write_access: false, value: 0xFFFFFFFF } ));
-    ret.data.push(DataTypes::SunspecU32(Point { name: "CtlVl", offset: 12+2, length: 1, write_access: false, value: 0xFFFFFFFF } ));
+    ret.data.push(DataTypes::SunspecU32(Point { name: "CtlVnd", offset: 10+2, length: 2, write_access: false, value: 0xFFFFFFFF } ));
+    ret.data.push(DataTypes::SunspecU32(Point { name: "CtlVl", offset: 12+2, length: 2, write_access: false, value: 0xFFFFFFFF } ));
     
     ret
 }

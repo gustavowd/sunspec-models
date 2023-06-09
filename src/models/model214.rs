@@ -70,7 +70,7 @@ pub fn model214() -> Model {
     ret.data.push(DataTypes::SunspecF32(Point { name: "TotVArhExpQ4phA", offset: 116+2, length: 2, write_access: false, value: f32::NAN } ));
     ret.data.push(DataTypes::SunspecF32(Point { name: "TotVArhExpQ4phB", offset: 118+2, length: 2, write_access: false, value: f32::NAN } ));
     ret.data.push(DataTypes::SunspecF32(Point { name: "TotVArhExpQ4phC", offset: 120+2, length: 2, write_access: false, value: f32::NAN } ));
-    ret.data.push(DataTypes::SunspecU32(Point { name: "Evt", offset: 122+2, length: 1, write_access: false, value: 0xFFFFFFFF } ));
+    ret.data.push(DataTypes::SunspecU32(Point { name: "Evt", offset: 122+2, length: 2, write_access: false, value: 0xFFFFFFFF } ));
     
     ret
 }

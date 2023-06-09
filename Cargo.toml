@@ -1,7 +1,7 @@
 [package]
 name = "sunspec-models"
 description = "Sunspec Models library - may be used with any modbus library"
-version = "0.5.13"
+version = "0.5.14"
 authors = [
     "Gustavo Weber Denardin <gustavo.denardin@gmail.com>"
 ]
@@ -18,10 +18,10 @@ edition = "2021"
 [dependencies]
 
 [dev-dependencies]
-anyhow = "1.0.69"
-futures = "0.3.26"
-futures-util = "0.3.26"
-tokio = { version = "1.25.0", features = [ "full" ] }
+anyhow = "1.0.71"
+futures = "0.3.28"
+futures-util = "0.3.28"
+tokio = { version = "1.28.2", features = [ "full" ] }
 tokio-modbus = {git = "https://github.com/slowtec/tokio-modbus.git", features=["tcp", "tcp-server"]}
 
 [[example]]

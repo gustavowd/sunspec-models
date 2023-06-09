@@ -93,7 +93,7 @@ pub fn model9() -> Model {
     ret.data.push(DataTypes::SunspecU16(Point { name: "Frg78", offset: 81+2, length: 1, write_access: true, value: 0xFFFF } ));
     ret.data.push(DataTypes::SunspecU16(Point { name: "Frg79", offset: 82+2, length: 1, write_access: true, value: 0xFFFF } ));
     ret.data.push(DataTypes::SunspecU16(Point { name: "Frg80", offset: 83+2, length: 1, write_access: true, value: 0xFFFF } ));
-    ret.data.push(DataTypes::SunspecU32(Point { name: "Ts", offset: 84+2, length: 1, write_access: true, value: 0xFFFFFFFF } ));
+    ret.data.push(DataTypes::SunspecU32(Point { name: "Ts", offset: 84+2, length: 2, write_access: true, value: 0xFFFFFFFF } ));
     ret.data.push(DataTypes::SunspecU16(Point { name: "Ms", offset: 86+2, length: 1, write_access: true, value: 0xFFFF } ));
     ret.data.push(DataTypes::SunspecU16(Point { name: "Seq", offset: 87+2, length: 1, write_access: true, value: 0xFFFF } ));
     ret.data.push(DataTypes::SunspecU16(Point { name: "UID", offset: 88+2, length: 1, write_access: true, value: 0xFFFF } ));

@@ -18,14 +18,14 @@ pub fn model710() -> Model {
     ret.data.push(DataTypes::SunspecI16(Point { name: "Tms_SF", offset: 6+2, length: 1, write_access: false, value: -32768i16 } ));
     ret.data.push(DataTypes::SunspecU16(Point { name: "DERTripHF.Crv.ReadOnly", offset: 7+2, length: 1, write_access: false, value: 0xFFFF } ));
     ret.data.push(DataTypes::SunspecU16(Point { name: "DERTripHF.Crv.MustTrip.ActPt", offset: 8+2, length: 1, write_access: true, value: 0xFFFF } ));
-    ret.data.push(DataTypes::SunspecU32(Point { name: "DERTripHF.Crv.MustTrip.Pt.Hz", offset: 9+2, length: 1, write_access: true, value: 0xFFFFFFFF } ));
-    ret.data.push(DataTypes::SunspecU32(Point { name: "DERTripHF.Crv.MustTrip.Pt.Tms", offset: 11+2, length: 1, write_access: true, value: 0xFFFFFFFF } ));
+    ret.data.push(DataTypes::SunspecU32(Point { name: "DERTripHF.Crv.MustTrip.Pt.Hz", offset: 9+2, length: 2, write_access: true, value: 0xFFFFFFFF } ));
+    ret.data.push(DataTypes::SunspecU32(Point { name: "DERTripHF.Crv.MustTrip.Pt.Tms", offset: 11+2, length: 2, write_access: true, value: 0xFFFFFFFF } ));
     ret.data.push(DataTypes::SunspecU16(Point { name: "DERTripHF.Crv.MayTrip.ActPt", offset: 13+2, length: 1, write_access: true, value: 0xFFFF } ));
-    ret.data.push(DataTypes::SunspecU32(Point { name: "DERTripHF.Crv.MayTrip.Pt.Hz", offset: 14+2, length: 1, write_access: true, value: 0xFFFFFFFF } ));
-    ret.data.push(DataTypes::SunspecU32(Point { name: "DERTripHF.Crv.MayTrip.Pt.Tms", offset: 16+2, length: 1, write_access: true, value: 0xFFFFFFFF } ));
+    ret.data.push(DataTypes::SunspecU32(Point { name: "DERTripHF.Crv.MayTrip.Pt.Hz", offset: 14+2, length: 2, write_access: true, value: 0xFFFFFFFF } ));
+    ret.data.push(DataTypes::SunspecU32(Point { name: "DERTripHF.Crv.MayTrip.Pt.Tms", offset: 16+2, length: 2, write_access: true, value: 0xFFFFFFFF } ));
     ret.data.push(DataTypes::SunspecU16(Point { name: "DERTripHF.Crv.MomCess.ActPt", offset: 18+2, length: 1, write_access: true, value: 0xFFFF } ));
-    ret.data.push(DataTypes::SunspecU32(Point { name: "DERTripHF.Crv.MomCess.Pt.Hz", offset: 19+2, length: 1, write_access: true, value: 0xFFFFFFFF } ));
-    ret.data.push(DataTypes::SunspecU32(Point { name: "DERTripHF.Crv.MomCess.Pt.Tms", offset: 21+2, length: 1, write_access: true, value: 0xFFFFFFFF } ));
+    ret.data.push(DataTypes::SunspecU32(Point { name: "DERTripHF.Crv.MomCess.Pt.Hz", offset: 19+2, length: 2, write_access: true, value: 0xFFFFFFFF } ));
+    ret.data.push(DataTypes::SunspecU32(Point { name: "DERTripHF.Crv.MomCess.Pt.Tms", offset: 21+2, length: 2, write_access: true, value: 0xFFFFFFFF } ));
     
     ret
 }

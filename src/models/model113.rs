@@ -34,12 +34,12 @@ pub fn model113() -> Model {
     ret.data.push(DataTypes::SunspecF32(Point { name: "TmpOt", offset: 44+2, length: 2, write_access: false, value: f32::NAN } ));
     ret.data.push(DataTypes::SunspecU16(Point { name: "St", offset: 46+2, length: 1, write_access: false, value: 0xFFFF } ));
     ret.data.push(DataTypes::SunspecU16(Point { name: "StVnd", offset: 47+2, length: 1, write_access: false, value: 0xFFFF } ));
-    ret.data.push(DataTypes::SunspecU32(Point { name: "Evt1", offset: 48+2, length: 1, write_access: false, value: 0xFFFFFFFF } ));
-    ret.data.push(DataTypes::SunspecU32(Point { name: "Evt2", offset: 50+2, length: 1, write_access: false, value: 0xFFFFFFFF } ));
-    ret.data.push(DataTypes::SunspecU32(Point { name: "EvtVnd1", offset: 52+2, length: 1, write_access: false, value: 0xFFFFFFFF } ));
-    ret.data.push(DataTypes::SunspecU32(Point { name: "EvtVnd2", offset: 54+2, length: 1, write_access: false, value: 0xFFFFFFFF } ));
-    ret.data.push(DataTypes::SunspecU32(Point { name: "EvtVnd3", offset: 56+2, length: 1, write_access: false, value: 0xFFFFFFFF } ));
-    ret.data.push(DataTypes::SunspecU32(Point { name: "EvtVnd4", offset: 58+2, length: 1, write_access: false, value: 0xFFFFFFFF } ));
+    ret.data.push(DataTypes::SunspecU32(Point { name: "Evt1", offset: 48+2, length: 2, write_access: false, value: 0xFFFFFFFF } ));
+    ret.data.push(DataTypes::SunspecU32(Point { name: "Evt2", offset: 50+2, length: 2, write_access: false, value: 0xFFFFFFFF } ));
+    ret.data.push(DataTypes::SunspecU32(Point { name: "EvtVnd1", offset: 52+2, length: 2, write_access: false, value: 0xFFFFFFFF } ));
+    ret.data.push(DataTypes::SunspecU32(Point { name: "EvtVnd2", offset: 54+2, length: 2, write_access: false, value: 0xFFFFFFFF } ));
+    ret.data.push(DataTypes::SunspecU32(Point { name: "EvtVnd3", offset: 56+2, length: 2, write_access: false, value: 0xFFFFFFFF } ));
+    ret.data.push(DataTypes::SunspecU32(Point { name: "EvtVnd4", offset: 58+2, length: 2, write_access: false, value: 0xFFFFFFFF } ));
     
     ret
 }

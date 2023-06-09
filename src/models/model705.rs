@@ -14,8 +14,8 @@ pub fn model705() -> Model {
     ret.data.push(DataTypes::SunspecU16(Point { name: "AdptCrvRslt", offset: 2+2, length: 1, write_access: false, value: 0xFFFF } ));
     ret.data.push(DataTypes::SunspecU16(Point { name: "NPt", offset: 3+2, length: 1, write_access: false, value: 0xFFFF } ));
     ret.data.push(DataTypes::SunspecU16(Point { name: "NCrv", offset: 4+2, length: 1, write_access: false, value: 0xFFFF } ));
-    ret.data.push(DataTypes::SunspecU32(Point { name: "RvrtTms", offset: 5+2, length: 1, write_access: true, value: 0xFFFFFFFF } ));
-    ret.data.push(DataTypes::SunspecU32(Point { name: "RvrtRem", offset: 7+2, length: 1, write_access: false, value: 0xFFFFFFFF } ));
+    ret.data.push(DataTypes::SunspecU32(Point { name: "RvrtTms", offset: 5+2, length: 2, write_access: true, value: 0xFFFFFFFF } ));
+    ret.data.push(DataTypes::SunspecU32(Point { name: "RvrtRem", offset: 7+2, length: 2, write_access: false, value: 0xFFFFFFFF } ));
     ret.data.push(DataTypes::SunspecU16(Point { name: "RvrtCrv", offset: 9+2, length: 1, write_access: true, value: 0xFFFF } ));
     ret.data.push(DataTypes::SunspecI16(Point { name: "V_SF", offset: 10+2, length: 1, write_access: false, value: -32768i16 } ));
     ret.data.push(DataTypes::SunspecI16(Point { name: "DeptRef_SF", offset: 11+2, length: 1, write_access: false, value: -32768i16 } ));
@@ -27,7 +27,7 @@ pub fn model705() -> Model {
     ret.data.push(DataTypes::SunspecU16(Point { name: "DERVoltVar.Crv.Pt.VRefAuto", offset: 17+2, length: 1, write_access: false, value: 0xFFFF } ));
     ret.data.push(DataTypes::SunspecU16(Point { name: "DERVoltVar.Crv.Pt.VRefAutoEna", offset: 18+2, length: 1, write_access: true, value: 0xFFFF } ));
     ret.data.push(DataTypes::SunspecU16(Point { name: "DERVoltVar.Crv.Pt.VRefAutoTms", offset: 19+2, length: 1, write_access: true, value: 0xFFFF } ));
-    ret.data.push(DataTypes::SunspecU32(Point { name: "DERVoltVar.Crv.Pt.RspTms", offset: 20+2, length: 1, write_access: true, value: 0xFFFFFFFF } ));
+    ret.data.push(DataTypes::SunspecU32(Point { name: "DERVoltVar.Crv.Pt.RspTms", offset: 20+2, length: 2, write_access: true, value: 0xFFFFFFFF } ));
     ret.data.push(DataTypes::SunspecU16(Point { name: "DERVoltVar.Crv.Pt.ReadOnly", offset: 22+2, length: 1, write_access: false, value: 0xFFFF } ));
     ret.data.push(DataTypes::SunspecU16(Point { name: "DERVoltVar.Crv.Pt.V_P1", offset: 23+2, length: 1, write_access: true, value: 0xFFFF } ));
     ret.data.push(DataTypes::SunspecI16(Point { name: "DERVoltVar.Crv.Pt.Var_P1", offset: 24+2, length: 1, write_access: true, value: -32768i16 } ));

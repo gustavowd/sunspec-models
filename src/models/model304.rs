@@ -9,9 +9,9 @@ pub fn model304() -> Model {
         update: false,
         data: Vec::new(),
     };
-    ret.data.push(DataTypes::SunspecI32(Point { name: "Inclx", offset: 0+2, length: 1, write_access: false, value: -2147483648i32 } ));
-    ret.data.push(DataTypes::SunspecI32(Point { name: "Incly", offset: 2+2, length: 1, write_access: false, value: -2147483648i32 } ));
-    ret.data.push(DataTypes::SunspecI32(Point { name: "Inclz", offset: 4+2, length: 1, write_access: false, value: -2147483648i32 } ));
+    ret.data.push(DataTypes::SunspecI32(Point { name: "Inclx", offset: 0+2, length: 2, write_access: false, value: -2147483648i32 } ));
+    ret.data.push(DataTypes::SunspecI32(Point { name: "Incly", offset: 2+2, length: 2, write_access: false, value: -2147483648i32 } ));
+    ret.data.push(DataTypes::SunspecI32(Point { name: "Inclz", offset: 4+2, length: 2, write_access: false, value: -2147483648i32 } ));
     
     ret
 }
