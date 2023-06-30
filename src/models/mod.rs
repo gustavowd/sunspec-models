@@ -140,7 +140,7 @@ pub trait SunspecModels {
     fn update_data(&mut self, point: &str, value: &DataTypes);
     fn update_data_by_index(&mut self, index: usize, value: &DataTypes);
     fn get_data(&self, point: &str) -> DataTypes;
-    fn get_data_index(&self, point: &str) -> usize;
+    fn get_data_index(&self, point: &str) -> Option<usize>;
     fn get_string(&self, point: &str) -> Option<String>;
     fn get_string_by_index(&self, idx: usize) -> Option<String>;
     fn get_f32(&self, point: &str) -> Option<f32>;
@@ -518,59 +518,59 @@ impl SunspecModels for Model {
         return DataTypes::SunspecU16(Point { name: "", offset: 0, length: 1, write_access: false, value: 0 } )
     }
 
-    fn get_data_index(&self, point: &str) -> usize {
+    fn get_data_index(&self, point: &str) -> Option<usize> {
         let mut idx = 0;
         for data_tmp in self.data.iter() {
             match data_tmp {
                 DataTypes::SunspecString(data) => {
                     if data.name.contains(point) && (data.name.len() == point.len()) {
-                        return idx;
+                        return Some(idx);
                     }
                 },
                 DataTypes::SunspecU16(data) => {
                     if data.name.contains(point) && (data.name.len() == point.len()) {
-                        return idx;
+                        return Some(idx);
                     }
                 },
                 DataTypes::SunspecU32(data) => {
                     if data.name.contains(point) && (data.name.len() == point.len()) {
-                        return idx;
+                        return Some(idx);
                     }
                 },
                 DataTypes::SunspecU64(data) => {
                     if data.name.contains(point) && (data.name.len() == point.len()) {
-                        return idx;
+                        return Some(idx);
                     }
                 },
                 DataTypes::SunspecU128(data) => {
                     if data.name.contains(point) && (data.name.len() == point.len()) {
-                        return idx;
+                        return Some(idx);
                     }
                 },
                 DataTypes::SunspecI16(data) => {
                     if data.name.contains(point) && (data.name.len() == point.len()) {
-                        return idx;
+                        return Some(idx);
                     }
                 },
                 DataTypes::SunspecI32(data) => {
                     if data.name.contains(point) && (data.name.len() == point.len()) {
-                        return idx;
+                        return Some(idx);
                     }
                 },
                 DataTypes::SunspecI64(data) => {
                     if data.name.contains(point) && (data.name.len() == point.len()) {
-                        return idx;
+                        return Some(idx);
                     }
                 },
                 DataTypes::SunspecF32(data) => {
                     if data.name.contains(point) && (data.name.len() == point.len()) {
-                        return idx;
+                        return Some(idx);
                     }
                 }
             };
             idx += 1;
         }
-        return idx;
+        return None;
     }
 
     fn get_f32(&self, point: &str) -> Option<f32> {

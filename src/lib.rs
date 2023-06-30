@@ -51,9 +51,10 @@ mod tests {
 
         assert_eq!(new_model.models[0].get_f32("Hz").unwrap(), 60.05);
 
-        let a_idx = new_model.models[0].get_data_index("Hz");
-        new_model.models[0].update_data_by_index(a_idx, &DataTypes::new_f32(60.08));
-        assert_eq!(new_model.models[0].get_f32("Hz").unwrap(), 60.08);
+        if let Some(a_idx) = new_model.models[0].get_data_index("Hz") {
+            new_model.models[0].update_data_by_index(a_idx, &DataTypes::new_f32(60.08));
+            assert_eq!(new_model.models[0].get_f32("Hz").unwrap(), 60.08);
+        }
     }
 
     #[test]
