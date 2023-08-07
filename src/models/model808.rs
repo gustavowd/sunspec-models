@@ -9,7 +9,7 @@ pub fn model808() -> Model {
         update: false,
         data: Vec::new(),
     };
-    ret.data.push(DataTypes::SunspecU16(Point { name: "ModuleTBD", offset: 0+2, length: 1, write_access: false, value: 0xFFFF } ));
+    ret.data.push(DataTypes::SunspecU16(Point { name: "ModuleTBD", offset: 2, length: 1, write_access: false, value: 0xFFFF } ));
     
     ret
 }

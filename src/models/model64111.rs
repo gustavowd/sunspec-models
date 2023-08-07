@@ -9,7 +9,7 @@ pub fn model64111() -> Model {
         update: false,
         data: Vec::new(),
     };
-    ret.data.push(DataTypes::SunspecU16(Point { name: "Port", offset: 0+2, length: 1, write_access: false, value: 0xFFFF } ));
+    ret.data.push(DataTypes::SunspecU16(Point { name: "Port", offset: 2, length: 1, write_access: false, value: 0xFFFF } ));
     ret.data.push(DataTypes::SunspecI16(Point { name: "V_SF", offset: 1+2, length: 1, write_access: false, value: -32768i16 } ));
     ret.data.push(DataTypes::SunspecI16(Point { name: "A_SF", offset: 2+2, length: 1, write_access: false, value: -32768i16 } ));
     ret.data.push(DataTypes::SunspecI16(Point { name: "P_SF", offset: 3+2, length: 1, write_access: false, value: -32768i16 } ));

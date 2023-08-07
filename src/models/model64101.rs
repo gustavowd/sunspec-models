@@ -9,7 +9,7 @@ pub fn model64101() -> Model {
         update: false,
         data: Vec::new(),
     };
-    ret.data.push(DataTypes::SunspecU16(Point { name: "Eltek_Country_Code", offset: 0+2, length: 1, write_access: false, value: 0xFFFF } ));
+    ret.data.push(DataTypes::SunspecU16(Point { name: "Eltek_Country_Code", offset: 2, length: 1, write_access: false, value: 0xFFFF } ));
     ret.data.push(DataTypes::SunspecU16(Point { name: "Eltek_Feeding_Phase", offset: 1+2, length: 1, write_access: false, value: 0xFFFF } ));
     ret.data.push(DataTypes::SunspecU16(Point { name: "Eltek_APD_Method", offset: 2+2, length: 1, write_access: false, value: 0xFFFF } ));
     ret.data.push(DataTypes::SunspecU16(Point { name: "Eltek_APD_Power_Ref", offset: 3+2, length: 1, write_access: false, value: 0xFFFF } ));

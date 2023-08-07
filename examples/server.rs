@@ -10,13 +10,14 @@ use tokio::net::TcpListener;
 use tokio_modbus::{
     prelude::*,
     server::tcp::{accept_tcp_connection, Server},
+    bytes::Bytes
 };
 
 
 const SUNSPEC_INIT_ADDR: u16 = 40000;
 
 fn error_response(req: &Request, exc: Exception) -> std::io::Result<Response> {
-    Ok(Response::Custom(req2functioncode(&req) | 0x80, vec![exc as u8]))
+    Ok(Response::Custom(req2functioncode(req) | 0x80, Bytes::from(vec![exc as u8])))
 }
 
 fn req2functioncode(req: &Request) -> u8 {
@@ -62,7 +63,7 @@ impl Service {
 }
 
 impl tokio_modbus::server::Service for Service {
-    type Request = SlaveRequest;
+    type Request = SlaveRequest<'static>;
     type Response = Response;
     type Error = std::io::Error;
     type Future = future::Ready<Result<Self::Response, Self::Error>>;
@@ -117,7 +118,8 @@ impl tokio_modbus::server::Service for Service {
                     let mut sunspec = self.models.lock().unwrap();
                     for model in sunspec.models.iter_mut() {
                         if (addr >= model.start_addr) && (addr <= (model.end_addr)) {
-                            let model_tmp = Model::from((regs.clone(), addr, regs.len() as u16, &model.clone()));
+                            let regs_vec = regs.to_vec();
+                            let model_tmp = Model::from((regs_vec, addr, regs.len() as u16, &model.clone()));
                             *model = model_tmp;
                             println!("{:?}", model);
                         }

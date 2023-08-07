@@ -9,7 +9,7 @@ pub fn model1() -> Model {
         update: false,
         data: Vec::new(),
     };
-    ret.data.push(DataTypes::SunspecString(Point { name: "Mn", offset: 0+2, length: 16, write_access: false, value: String::new() } ));
+    ret.data.push(DataTypes::SunspecString(Point { name: "Mn", offset: 2, length: 16, write_access: false, value: String::new() } ));
     ret.data.push(DataTypes::SunspecString(Point { name: "Md", offset: 16+2, length: 16, write_access: false, value: String::new() } ));
     ret.data.push(DataTypes::SunspecString(Point { name: "Opt", offset: 32+2, length: 8, write_access: false, value: String::new() } ));
     ret.data.push(DataTypes::SunspecString(Point { name: "Vr", offset: 40+2, length: 8, write_access: false, value: String::new() } ));

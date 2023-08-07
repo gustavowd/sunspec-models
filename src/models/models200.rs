@@ -1,3 +1,4 @@
+#[repr(u32)]
 #[derive(Debug, Default, Clone, Copy)]
 #[allow(unused)]
 pub enum Evt {

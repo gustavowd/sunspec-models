@@ -9,7 +9,7 @@ pub fn model801() -> Model {
         update: false,
         data: Vec::new(),
     };
-    ret.data.push(DataTypes::SunspecU16(Point { name: "DEPRECATED", offset: 0+2, length: 1, write_access: false, value: 0xFFFF } ));
+    ret.data.push(DataTypes::SunspecU16(Point { name: "DEPRECATED", offset: 2, length: 1, write_access: false, value: 0xFFFF } ));
     
     ret
 }

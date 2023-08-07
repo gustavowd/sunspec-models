@@ -9,7 +9,7 @@ pub fn model128() -> Model {
         update: false,
         data: Vec::new(),
     };
-    ret.data.push(DataTypes::SunspecU16(Point { name: "ArGraMod", offset: 0+2, length: 1, write_access: true, value: 0xFFFF } ));
+    ret.data.push(DataTypes::SunspecU16(Point { name: "ArGraMod", offset: 2, length: 1, write_access: true, value: 0xFFFF } ));
     ret.data.push(DataTypes::SunspecU16(Point { name: "ArGraSag", offset: 1+2, length: 1, write_access: true, value: 0xFFFF } ));
     ret.data.push(DataTypes::SunspecU16(Point { name: "ArGraSwell", offset: 2+2, length: 1, write_access: true, value: 0xFFFF } ));
     ret.data.push(DataTypes::SunspecU16(Point { name: "ModEna", offset: 3+2, length: 1, write_access: true, value: 0xFFFF } ));

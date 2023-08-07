@@ -9,7 +9,7 @@ pub fn model704() -> Model {
         update: false,
         data: Vec::new(),
     };
-    ret.data.push(DataTypes::SunspecU16(Point { name: "PFWInjEna", offset: 0+2, length: 1, write_access: true, value: 0xFFFF } ));
+    ret.data.push(DataTypes::SunspecU16(Point { name: "PFWInjEna", offset: 2, length: 1, write_access: true, value: 0xFFFF } ));
     ret.data.push(DataTypes::SunspecU16(Point { name: "PFWInjEnaRvrt", offset: 1+2, length: 1, write_access: true, value: 0xFFFF } ));
     ret.data.push(DataTypes::SunspecU32(Point { name: "PFWInjRvrtTms", offset: 2+2, length: 2, write_access: true, value: 0xFFFFFFFF } ));
     ret.data.push(DataTypes::SunspecU32(Point { name: "PFWInjRvrtRem", offset: 4+2, length: 2, write_access: false, value: 0xFFFFFFFF } ));

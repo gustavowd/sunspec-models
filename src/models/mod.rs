@@ -168,8 +168,8 @@ impl SunspecID {
         let mut ret = SunspecID {
             id: [0; 4],
         };
-        srt_to_vec_u8("SunS", &mut ret.id);
-        return ret;
+        srt_to_vec_u8("SunS", &mut ret.id).unwrap();
+        ret
     }
 }
 
@@ -179,26 +179,22 @@ impl Models {
     }
 
     pub fn get_model_index(&self, model_number: u16) -> Option<usize> {
-        let mut idx = 0;
-        for model in self.models.iter() {
+        for (idx, model) in self.models.iter().enumerate() {
             if model_number == model.model_number {
                 return Some(idx);
             }
-            idx += 1;
         }
         None
     }
 
     pub fn compute_addr (&mut self) {
-        let mut idx = 0;
         let mut end_addr = 0;
-        for model in self.models.iter_mut() {
+        for (idx, model) in self.models.iter_mut().enumerate() {
             if idx == 0 {
                 model.start_addr = SUNSPEC_INIT_ADDR + 2;
             }else{
                 model.start_addr = end_addr;
             }
-            idx += 1;
             model.end_addr = model.start_addr + model.qtd + 2;
             end_addr = model.end_addr;
         }
@@ -323,7 +319,7 @@ impl SunspecModels for Model {
             64110 => model64110::model64110(),
             64111 => model64111::model64111(),
             64112 => model64112::model64112(),
-            _ => return model_end(),
+            _ => model_end(),
         }
     }
 
@@ -332,74 +328,65 @@ impl SunspecModels for Model {
             match data_tmp {
                 DataTypes::SunspecString(data) => {
                     if data.name.contains(point) && (data.name.len() == point.len()){
-                        match value {
-                            DataTypes::SunspecString(update_value) =>  data.value = update_value.value.clone(),
-                            _ => {},
-                        };
+                        if let DataTypes::SunspecString(update_value) = value {
+                            data.value = update_value.value.clone();
+                        }
                     }
                 },
                 DataTypes::SunspecF32(data) => {
                     if data.name.contains(point) && (data.name.len() == point.len()){
-                        match value {
-                            DataTypes::SunspecF32(update_value) =>  data.value = update_value.value,
-                            _ => {},
-                        };
+                        if let DataTypes::SunspecF32(update_value) = value {
+                            data.value = update_value.value;
+                        }
                     }
                 },
                 DataTypes::SunspecU16(data) => {
                     if data.name.contains(point) && (data.name.len() == point.len()){
-                        match value {
-                            DataTypes::SunspecU16(update_value) =>  data.value = update_value.value,
-                            _ => {},
-                        };
+                        if let DataTypes::SunspecU16(update_value) = value {
+                            data.value = update_value.value;
+                        }
                     }
                 },
                 DataTypes::SunspecU32(data) => {
                     if data.name.contains(point) && (data.name.len() == point.len()){
-                        match value {
-                            DataTypes::SunspecU32(update_value) =>  data.value = update_value.value,
-                            _ => {},
-                        };
+                        if let DataTypes::SunspecU32(update_value) = value {
+                            data.value = update_value.value;
+                        }
                     }
                 },
                 DataTypes::SunspecU64(data) => {
                     if data.name.contains(point) && (data.name.len() == point.len()){
-                        match value {
-                            DataTypes::SunspecU64(update_value) =>  data.value = update_value.value,
-                            _ => {},
-                        };
+                        if let DataTypes::SunspecU64(update_value) = value {
+                            data.value = update_value.value;
+                        }
                     }
                 },
                 DataTypes::SunspecU128(data) => {
                     if data.name.contains(point) && (data.name.len() == point.len()){
-                        match value {
-                            DataTypes::SunspecU128(update_value) =>  data.value = update_value.value,
-                            _ => {},
-                        };
+                        if let DataTypes::SunspecU128(update_value) = value {
+                            data.value = update_value.value;
+                        }
                     }
                 },
                 DataTypes::SunspecI16(data) => {
                     if data.name.contains(point) && (data.name.len() == point.len()){
-                        match value {
-                            DataTypes::SunspecI16(update_value) =>  data.value = update_value.value,
-                            _ => {},
-                        };
+                        if let DataTypes::SunspecI16(update_value) = value {
+                            data.value = update_value.value;
+                        }
                     }
                 },
                 DataTypes::SunspecI32(data) => {
                     if data.name.contains(point) && (data.name.len() == point.len()){
-                        match value {
-                            DataTypes::SunspecI32(update_value) =>  data.value = update_value.value,
-                            _ => {},
-                        };
+                        if let DataTypes::SunspecI32(update_value) = value {
+                            data.value = update_value.value;
+                        }
                     }
                 },
                 DataTypes::SunspecI64(data) => {
                     if data.name.contains(point) && (data.name.len() == point.len()){
-                        match value {
-                            DataTypes::SunspecI64(update_value) =>  data.value = update_value.value,
-                            _ => {},
-                        };
+                        if let DataTypes::SunspecI64(update_value) = value {
+                            data.value = update_value.value;
+                        }
                     }
                 },
             }
@@ -409,58 +396,49 @@ impl SunspecModels for Model {
     fn update_data_by_index(&mut self, index: usize, value: &DataTypes) {
         match &mut self.data[index] {
             DataTypes::SunspecString(data) => {
-                match value {
-                    DataTypes::SunspecString(update_value) =>  data.value = update_value.value.clone(),
-                    _ => {},
-                };
+                if let DataTypes::SunspecString(update_value) = value {
+                    data.value = update_value.value.clone();
+                }
             },
             DataTypes::SunspecF32(data) => {
-                match value {
-                    DataTypes::SunspecF32(update_value) =>  data.value = update_value.value,
-                    _ => {},
-                };
+                if let DataTypes::SunspecF32(update_value) = value {
+                    data.value = update_value.value;
+                }
             },
             DataTypes::SunspecU16(data) => {
-                match value {
-                    DataTypes::SunspecU16(update_value) =>  data.value = update_value.value,
-                    _ => {},
-                };
+                if let DataTypes::SunspecU16(update_value) = value {
+                    data.value = update_value.value;
+                }
             },
             DataTypes::SunspecU32(data) => {
-                match value {
-                    DataTypes::SunspecU32(update_value) =>  data.value = update_value.value,
-                    _ => {},
-                };
+                if let DataTypes::SunspecU32(update_value) = value {
+                    data.value = update_value.value;
+                }
             },
             DataTypes::SunspecU64(data) => {
-                match value {
-                    DataTypes::SunspecU64(update_value) =>  data.value = update_value.value,
-                    _ => {},
-                };
+                if let DataTypes::SunspecU64(update_value) = value {
+                    data.value = update_value.value;
+                }
             },
             DataTypes::SunspecU128(data) => {
-                match value {
-                    DataTypes::SunspecU128(update_value) =>  data.value = update_value.value,
-                    _ => {},
-                };
+                if let DataTypes::SunspecU128(update_value) = value {
+                    data.value = update_value.value;
+                }
             },
             DataTypes::SunspecI16(data) => {
-                match value {
-                    DataTypes::SunspecI16(update_value) =>  data.value = update_value.value,
-                    _ => {},
-                };
+                if let DataTypes::SunspecI16(update_value) = value {
+                    data.value = update_value.value;
+                }
             },
             DataTypes::SunspecI32(data) => {
-                match value {
-                    DataTypes::SunspecI32(update_value) =>  data.value = update_value.value,
-                    _ => {},
-                };
+                if let DataTypes::SunspecI32(update_value) = value {
+                    data.value = update_value.value;
+                }
             },
             DataTypes::SunspecI64(data) => {
-                match value {
-                    DataTypes::SunspecI64(update_value) =>  data.value = update_value.value,
-                    _ => {},
-                };
+                if let DataTypes::SunspecI64(update_value) = value {
+                    data.value = update_value.value;
+                }
             },
         }
     }
@@ -515,12 +493,11 @@ impl SunspecModels for Model {
                 }
             };
         }
-        return DataTypes::SunspecU16(Point { name: "", offset: 0, length: 1, write_access: false, value: 0 } )
+        DataTypes::SunspecU16(Point { name: "", offset: 0, length: 1, write_access: false, value: 0 } )
     }
 
     fn get_data_index(&self, point: &str) -> Option<usize> {
-        let mut idx = 0;
-        for data_tmp in self.data.iter() {
+        for (idx, data_tmp) in self.data.iter().enumerate() {
             match data_tmp {
                 DataTypes::SunspecString(data) => {
                     if data.name.contains(point) && (data.name.len() == point.len()) {
@@ -568,215 +545,187 @@ impl SunspecModels for Model {
                     }
                 }
             };
-            idx += 1;
         }
-        return None;
+        None
     }
 
     fn get_f32(&self, point: &str) -> Option<f32> {
         for data_tmp in self.data.iter() {
-            match data_tmp {
-                DataTypes::SunspecF32(data) => {
-                    if data.name.contains(point) && (data.name.len() == point.len()) {
-                        return Some(data.value);
-                    }
-                },
-                _ => {},
+            if let DataTypes::SunspecF32(data) = data_tmp {
+                if data.name.contains(point) && (data.name.len() == point.len()) {
+                    return Some(data.value);
+                }
             }
         }
-        return None
+        None
     }
 
     fn get_f32_by_index(&self, idx: usize) -> Option<f32> {
         match self.data[idx] {
             DataTypes::SunspecF32(data) => {
-                return Some(data.value);
+                Some(data.value)
             },
-            _ => return None,
+            _ => None
         }
     }
 
     fn get_string(&self, point: &str) -> Option<String> {
         for data_tmp in self.data.iter() {
-            match data_tmp {
-                DataTypes::SunspecString(data) => {
-                    if data.name.contains(point) && (data.name.len() == point.len()) {
-                        return Some(data.value.clone());
-                    }
-                },
-                _ => {},
+            if let DataTypes::SunspecString(data) = data_tmp {
+                if data.name.contains(point) && (data.name.len() == point.len()) {
+                    return Some(data.value.clone());
+                }
             }
         }
-        return None
+        None
     }
 
     fn get_string_by_index(&self, idx: usize) -> Option<String> {
         match &self.data[idx] {
             DataTypes::SunspecString(data) => {
-                return Some(data.value.clone());
+                Some(data.value.clone())
             },
-            _ => return None,
+            _ => None
         }
     }
 
     fn get_u16(&self, point: &str) -> Option<u16> {
         for data_tmp in self.data.iter() {
-            match data_tmp {
-                DataTypes::SunspecU16(data) => {
-                    if data.name.contains(point) && (data.name.len() == point.len()) {
-                        return Some(data.value);
-                    }
-                },
-                _ => {},
+            if let DataTypes::SunspecU16(data) = data_tmp {
+                if data.name.contains(point) && (data.name.len() == point.len()) {
+                    return Some(data.value);
+                }
             }
         }
-        return None
+        None
     }
 
     fn get_u16_by_index(&self, idx: usize) -> Option<u16> {
         match self.data[idx] {
             DataTypes::SunspecU16(data) => {
-                return Some(data.value);
+                Some(data.value)
             },
-            _ => return None,
+            _ => None
         }
     }
 
     fn get_u32(&self, point: &str) -> Option<u32> {
         for data_tmp in self.data.iter() {
-            match data_tmp {
-                DataTypes::SunspecU32(data) => {
-                    if data.name.contains(point) && (data.name.len() == point.len()) {
-                        return Some(data.value);
-                    }
-                },
-                _ => {},
+            if let DataTypes::SunspecU32(data) = data_tmp {
+                if data.name.contains(point) && (data.name.len() == point.len()) {
+                    return Some(data.value);
+                }
             }
         }
-        return None
+        None
     }
 
     fn get_u32_by_index(&self, idx: usize) -> Option<u32> {
         match self.data[idx] {
             DataTypes::SunspecU32(data) => {
-                return Some(data.value);
+                Some(data.value)
             },
-            _ => return None,
+            _ => None
         }
     }
 
     fn get_u64(&self, point: &str) -> Option<u64> {
         for data_tmp in self.data.iter() {
-            match data_tmp {
-                DataTypes::SunspecU64(data) => {
-                    if data.name.contains(point) && (data.name.len() == point.len()) {
-                        return Some(data.value);
-                    }
-                },
-                _ => {},
+            if let DataTypes::SunspecU64(data) = data_tmp {
+                if data.name.contains(point) && (data.name.len() == point.len()) {
+                    return Some(data.value);
+                }
             }
         }
-        return None
+        None
     }
 
     fn get_u64_by_index(&self, idx: usize) -> Option<u64> {
         match self.data[idx] {
             DataTypes::SunspecU64(data) => {
-                return Some(data.value);
+                Some(data.value)
             },
-            _ => return None,
+            _ => None
         }
     }
 
     fn get_u128(&self, point: &str) -> Option<u128> {
         for data_tmp in self.data.iter() {
-            match data_tmp {
-                DataTypes::SunspecU128(data) => {
-                    if data.name.contains(point) && (data.name.len() == point.len()) {
-                        return Some(data.value);
-                    }
-                },
-                _ => {},
+            if let DataTypes::SunspecU128(data) = data_tmp {
+                if data.name.contains(point) && (data.name.len() == point.len()) {
+                    return Some(data.value);
+                }
             }
         }
-        return None
+        None
     }
 
     fn get_u128_by_index(&self, idx: usize) -> Option<u128> {
         match self.data[idx] {
             DataTypes::SunspecU128(data) => {
-                return Some(data.value);
+                Some(data.value)
             },
-            _ => return None,
+            _ => None
         }
     }
 
     fn get_i16(&self, point: &str) -> Option<i16> {
         for data_tmp in self.data.iter() {
-            match data_tmp {
-                DataTypes::SunspecI16(data) => {
-                    if data.name.contains(point) && (data.name.len() == point.len()) {
-                        return Some(data.value);
-                    }
-                },
-                _ => {},
+            if let DataTypes::SunspecI16(data) = data_tmp {
+                if data.name.contains(point) && (data.name.len() == point.len()) {
+                    return Some(data.value);
+                }
             }
         }
-        return None
+        None
     }
 
     fn get_i16_by_index(&self, idx: usize) -> Option<i16> {
         match self.data[idx] {
             DataTypes::SunspecI16(data) => {
-                return Some(data.value);
+                Some(data.value)
             },
-            _ => return None,
+            _ => None
         }
     }
 
     fn get_i32(&self, point: &str) -> Option<i32> {
         for data_tmp in self.data.iter() {
-            match data_tmp {
-                DataTypes::SunspecI32(data) => {
-                    if data.name.contains(point) && (data.name.len() == point.len()) {
-                        return Some(data.value);
-                    }
-                },
-                _ => {},
+            if let DataTypes::SunspecI32(data) = data_tmp {
+                if data.name.contains(point) && (data.name.len() == point.len()) {
+                    return Some(data.value);
+                }
             }
         }
-        return None
+        None
     }
 
     fn get_i32_by_index(&self, idx: usize) -> Option<i32> {
         match self.data[idx] {
             DataTypes::SunspecI32(data) => {
-                return Some(data.value);
+                Some(data.value)
             },
-            _ => return None,
+            _ => None
         }
     }
 
     fn get_i64(&self, point: &str) -> Option<i64> {
         for data_tmp in self.data.iter() {
-            match data_tmp {
-                DataTypes::SunspecI64(data) => {
-                    if data.name.contains(point) && (data.name.len() == point.len()) {
-                        return Some(data.value);
-                    }
-                },
-                _ => {},
+            if let DataTypes::SunspecI64(data) = data_tmp {
+                if data.name.contains(point) && (data.name.len() == point.len()) {
+                    return Some(data.value);
+                }
             }
         }
-        return None
+        None
     }
 
     fn get_i64_by_index(&self, idx: usize) -> Option<i64> {
         match self.data[idx] {
             DataTypes::SunspecI64(data) => {
-                return Some(data.value);
+                Some(data.value)
             },
-            _ => return None,
+            _ => None
         }
     }
 
@@ -800,7 +749,7 @@ impl SunspecModels for Model {
 }
 
 
-fn vec_u8_to_vec_u16(src: &[u8], dst: &mut Vec<u16>, mut idx: usize, size: usize) -> usize {
+fn vec_u8_to_vec_u16(src: &[u8], dst: &mut [u16], mut idx: usize, size: usize) -> usize {
     for i in (0..size).step_by(2) {
         dst[idx] = (src[i] as u16) << 8;
         dst[idx] += src[i+1] as u16;
@@ -809,8 +758,8 @@ fn vec_u8_to_vec_u16(src: &[u8], dst: &mut Vec<u16>, mut idx: usize, size: usize
     idx
 }
 
-pub fn srt_to_vec_u8(src: &str, mut dst: &mut [u8]){
-    dst.write(src.as_bytes()).unwrap();
+pub fn srt_to_vec_u8(src: &str, mut dst: &mut [u8]) -> Result<usize, std::io::Error> {
+    dst.write(src.as_bytes())
 }
 
 impl From<SunspecID> for Vec<u16> {
@@ -869,7 +818,7 @@ impl From<(Vec<u16>, u16, u16, &Model)> for Model {
             for data in model1.data.iter_mut() {
                 match data {
                     DataTypes::SunspecString(data) => {
-                        if (offset == data.offset) && (data.write_access == true) {
+                        if (offset == data.offset) && (data.write_access) {
                             data.value = Point::<String>::decode(regs.clone()).value;
                             offset += data.length;
                             qtd -= data.length;
@@ -879,7 +828,7 @@ impl From<(Vec<u16>, u16, u16, &Model)> for Model {
                         }
                     },
                     DataTypes::SunspecU16(data) => {
-                        if (offset == data.offset) && (data.write_access == true) {
+                        if (offset == data.offset) && (data.write_access) {
                             data.value = u16::decode(regs.clone());
                             offset += data.length;
                             qtd -= data.length;
@@ -889,7 +838,7 @@ impl From<(Vec<u16>, u16, u16, &Model)> for Model {
                         }
                     },
                     DataTypes::SunspecU32(data) => {
-                        if (offset == data.offset) && (data.write_access == true) {
+                        if (offset == data.offset) && (data.write_access) {
                             data.value = u32::decode(regs.clone());
                             offset += data.length;
                             qtd -= data.length;
@@ -899,7 +848,7 @@ impl From<(Vec<u16>, u16, u16, &Model)> for Model {
                         }
                     },
                     DataTypes::SunspecU64(data) => {
-                        if (offset == data.offset) && (data.write_access == true) {
+                        if (offset == data.offset) && (data.write_access) {
                             data.value = u64::decode(regs.clone());
                             offset += data.length;
                             qtd -= data.length;
@@ -909,7 +858,7 @@ impl From<(Vec<u16>, u16, u16, &Model)> for Model {
                         }
                     },
                     DataTypes::SunspecU128(data) => {
-                        if (offset == data.offset) && (data.write_access == true) {
+                        if (offset == data.offset) && (data.write_access) {
                             data.value = u128::decode(regs.clone());
                             offset += data.length;
                             qtd -= data.length;
@@ -919,7 +868,7 @@ impl From<(Vec<u16>, u16, u16, &Model)> for Model {
                         }
                     },
                     DataTypes::SunspecI16(data) => {
-                        if (offset == data.offset) && (data.write_access == true) {
+                        if (offset == data.offset) && (data.write_access) {
                             data.value = i16::decode(regs.clone());
                             offset += data.length;
                             qtd -= data.length;
@@ -929,7 +878,7 @@ impl From<(Vec<u16>, u16, u16, &Model)> for Model {
                         }
                     },
                     DataTypes::SunspecI32(data) => {
-                        if (offset == data.offset) && (data.write_access == true) {
+                        if (offset == data.offset) && (data.write_access) {
                             data.value = i32::decode(regs.clone());
                             offset += data.length;
                             qtd -= data.length;
@@ -939,7 +888,7 @@ impl From<(Vec<u16>, u16, u16, &Model)> for Model {
                         }
                     },
                     DataTypes::SunspecI64(data) => {
-                        if (offset == data.offset) && (data.write_access == true) {
+                        if (offset == data.offset) && (data.write_access) {
                             data.value = i64::decode(regs.clone());
                             offset += data.length;
                             qtd -= data.length;

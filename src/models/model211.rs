@@ -9,7 +9,7 @@ pub fn model211() -> Model {
         update: false,
         data: Vec::new(),
     };
-    ret.data.push(DataTypes::SunspecF32(Point { name: "A", offset: 0+2, length: 2, write_access: false, value: f32::NAN } ));
+    ret.data.push(DataTypes::SunspecF32(Point { name: "A", offset: 2, length: 2, write_access: false, value: f32::NAN } ));
     ret.data.push(DataTypes::SunspecF32(Point { name: "AphA", offset: 2+2, length: 2, write_access: false, value: f32::NAN } ));
     ret.data.push(DataTypes::SunspecF32(Point { name: "AphB", offset: 4+2, length: 2, write_access: false, value: f32::NAN } ));
     ret.data.push(DataTypes::SunspecF32(Point { name: "AphC", offset: 6+2, length: 2, write_access: false, value: f32::NAN } ));
