@@ -5,7 +5,7 @@ pub fn model303() -> Model {
         start_addr: 0,
         end_addr: 0,
         model_number: 303,
-        qtd: 2,
+        qtd: 1,
         update: false,
         data: Vec::new(),
     };
