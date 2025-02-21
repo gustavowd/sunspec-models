@@ -9,32 +9,12 @@ use sunspec_models::types::{SunspecTypes, DataTypes};
 use tokio::net::TcpListener;
 use tokio_modbus::{
     prelude::*,
-    server::tcp::{accept_tcp_connection, Server},
-    bytes::Bytes
+    server::tcp::{accept_tcp_connection, Server}
 };
 
 
 const SUNSPEC_INIT_ADDR: u16 = 40000;
 
-fn error_response(req: &Request, exc: Exception) -> std::io::Result<Response> {
-    Ok(Response::Custom(req2functioncode(req) | 0x80, Bytes::from(vec![exc as u8])))
-}
-
-fn req2functioncode(req: &Request) -> u8 {
-    match *req {
-        Request::ReadCoils(_, _) => 0x01,
-        Request::ReadDiscreteInputs(_, _) => 0x02,
-        Request::WriteSingleCoil(_, _) => 0x05,
-        Request::WriteMultipleCoils(_, _) => 0x0F,
-        Request::ReadInputRegisters(_, _) => 0x04,
-        Request::ReadHoldingRegisters(_, _) => 0x03,
-        Request::WriteSingleRegister(_, _) => 0x06,
-        Request::WriteMultipleRegisters(_, _) => 0x10,
-        Request::ReadWriteMultipleRegisters(_, _, _, _) => 0x17,
-        Request::Custom(code, _) => code,
-        _ => 0x00,
-    }
-}
 
 #[repr(u8)]
 #[allow(unused)]
@@ -65,13 +45,13 @@ impl Service {
 impl tokio_modbus::server::Service for Service {
     type Request = SlaveRequest<'static>;
     type Response = Response;
-    type Error = std::io::Error;
-    type Future = future::Ready<Result<Self::Response, Self::Error>>;
+    type Exception = ExceptionCode;
+    type Future = future::Ready<Result<Self::Response, Self::Exception>>;
 
-    fn call(&self, req: Self::Request) -> Self::Future 
+    fn call(&self, req: Self::Request) -> Self::Future
     {
         println!("Responding request of unit id: {}", req.slave);
-        match req.request.clone() {
+        let res = match req.request.clone() {
             Request::ReadHoldingRegisters(addr, cnt) => {
                 let mut start_addr = 0;
                 let mut sunspec = self.models.lock().unwrap();
@@ -92,21 +72,18 @@ impl tokio_modbus::server::Service for Service {
                 
                 // Update current for test purposes
                 let a = sunspec.models[1].get_f32("A");
-                match a {
-                    Some(mut a) => {
-                        a += 0.1;
-                        sunspec.models[1].update_data("A", &DataTypes::new_f32(a));
-                    },
-                    _ => {}
+                if let Some(mut a) = a {
+                    a += 0.1;
+                    sunspec.models[1].update_data("A", &DataTypes::new_f32(a));
                 }
                 drop(sunspec);
 
                 if addr >= SUNSPEC_INIT_ADDR && (addr + cnt) <= end_addr {
                     println!("Read Holding Registers - Addr: {} - cnt: {}", addr, cnt);
                     let registers = &registers[(addr-start_addr) as usize..(cnt+(addr-start_addr)) as usize];
-                    future::ready(Ok(Response::ReadHoldingRegisters(registers.to_vec())))
+                    Ok(Response::ReadHoldingRegisters(registers.to_vec()))
                 }else {
-                    future::ready(error_response(&req.request, Exception::IllegalDataAddress))
+                    Err(ExceptionCode::IllegalDataAddress)
                 }
             },
             Request::WriteMultipleRegisters(addr, regs) => {
@@ -126,13 +103,14 @@ impl tokio_modbus::server::Service for Service {
                     }
                     drop(sunspec);
 
-                    future::ready(Ok(Response::WriteMultipleRegisters(addr,regs.len() as u16)))
+                    Ok(Response::WriteMultipleRegisters(addr,regs.len() as u16))
                 }else {
-                    future::ready(error_response(&req.request, Exception::IllegalDataAddress))
+                    Err(ExceptionCode::IllegalDataAddress)
                 }
             },
-            _ => future::ready(error_response(&req.request, Exception::IllegalFunction))
-        }
+            _ => Err(ExceptionCode::IllegalFunction)
+        };
+        future::ready(res)
     }
 }
 
