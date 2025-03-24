@@ -1,0 +1,45 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug executable 'solis-to-sunspec-gateway'",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin=solis-to-sunspec-gateway",
+                    "--package=solis-to-sunspec-gateway"
+                ],
+                "filter": {
+                    "name": "solis-to-sunspec-gateway",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in executable 'solis-to-sunspec-gateway'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--bin=solis-to-sunspec-gateway",
+                    "--package=solis-to-sunspec-gateway"
+                ],
+                "filter": {
+                    "name": "solis-to-sunspec-gateway",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        }
+    ]
+}
