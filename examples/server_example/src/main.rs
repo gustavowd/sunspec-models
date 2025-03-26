@@ -10,6 +10,7 @@ use futures::future;
 use futures_time::prelude::*;
 use pkcs8::der::Decode;
 use rustls_pemfile::{certs, pkcs8_private_keys, ec_private_keys};
+use rustls::server::WebPkiClientVerifier;
 use sunspec_models::models::{Models, Model, SunspecModels, SUNSPEC_INIT_ADDR};
 use sunspec_models::types::{SunspecTypes, DataTypes};
 use tokio::net::TcpListener;
@@ -325,11 +326,22 @@ async fn server_context(socket_addr: SocketAddr, data: Arc<Mutex<Models>>) -> an
         let key_path = Path::new("./pki/serverv3.key");
         let certs = load_certs(cert_path)?;
 
+        let mut root_cert_store = tokio_rustls::rustls::RootCertStore::empty();
+        let ca_path = Path::new("./pki/cav3.pem");
+        let mut pem = BufReader::new(File::open(ca_path)?);
+        let ca_certs = rustls_pemfile::certs(&mut pem).collect::<Result<Vec<_>, _>>()?;
+        root_cert_store.add_parsable_certificates(ca_certs);
+
+        let client_auth = WebPkiClientVerifier::builder(root_cert_store.into())
+            .build()
+            .unwrap();
+
         let key = load_keys(key_path, None)?;
         let config = rustls::ServerConfig::builder()
-            .with_no_client_auth()
+            .with_client_cert_verifier(client_auth)
             .with_single_cert(certs, key)
             .map_err(|err| io::Error::new(io::ErrorKind::InvalidInput, err))?;
+
         let acceptor = TlsAcceptor::from(Arc::new(config));
 
         let service = Service::new(Arc::clone(data_pointer));
