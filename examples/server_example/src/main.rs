@@ -27,6 +27,8 @@ use ini::Ini;
 mod model_init;
 use model_init::*;
 
+use rustls::crypto::{CryptoProvider, aws_lc_rs as provider};
+
 fn load_certs(path: &Path) -> io::Result<Vec<CertificateDer<'static>>> {
     certs(&mut BufReader::new(File::open(path)?)).collect()
 }
@@ -337,10 +339,28 @@ async fn server_context(socket_addr: SocketAddr, data: Arc<Mutex<Models>>) -> an
             .unwrap();
 
         let key = load_keys(key_path, None)?;
+
+        /*
         let config = rustls::ServerConfig::builder()
             .with_client_cert_verifier(client_auth)
             .with_single_cert(certs, key)
             .map_err(|err| io::Error::new(io::ErrorKind::InvalidInput, err))?;
+        */
+
+        let config = tokio_rustls::rustls::ServerConfig::builder_with_provider(
+            CryptoProvider {
+                cipher_suites:
+                vec![provider::cipher_suite::TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256],
+                kx_groups: vec![provider::kx_group::SECP256R1],
+                ..provider::default_provider()
+            }
+            .into()
+        )
+        .with_protocol_versions(&[&rustls::version::TLS12])
+        .map_err(|err| io::Error::new(io::ErrorKind::InvalidInput, err))?
+        .with_client_cert_verifier(client_auth)
+        .with_single_cert(certs, key)
+        .map_err(|err| io::Error::new(io::ErrorKind::InvalidInput, err))?;
 
         let acceptor = TlsAcceptor::from(Arc::new(config));
 
