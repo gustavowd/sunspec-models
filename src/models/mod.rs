@@ -138,6 +138,7 @@ pub struct Models {
 pub trait SunspecModels {
     // This new function acts as a constructor
     fn new (model_number: u16) -> Self;
+    fn new_blocks (model_number: u16, number: u16) -> Self;
     fn update_data(&mut self, point: &str, value: &DataTypes);
     fn update_data_by_index(&mut self, index: usize, value: &DataTypes);
     fn get_data(&self, point: &str) -> DataTypes;
@@ -267,7 +268,7 @@ impl SunspecModels for Model {
             143 => model143::model143(),
             144 => model144::model144(),
             145 => model145::model145(),
-            160 => model160::model160(),
+            //160 => model160::model160(),
             201 => model201::model201(),
             202 => model202::model202(),
             203 => model203::model203(),
@@ -322,6 +323,13 @@ impl SunspecModels for Model {
             64111 => model64111::model64111(),
             64112 => model64112::model64112(),
             _ => model_end(),
+        }
+    }
+
+    fn new_blocks (model_number: u16, number: u16) -> Self {
+        match model_number {
+            160 => model160::model160(number),
+            _ => model160::model160(number)
         }
     }
 
