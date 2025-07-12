@@ -102,6 +102,7 @@ pub mod model63001;
 pub mod model63002;
 pub mod model64001;
 pub mod model64020;
+pub mod model64061;
 pub mod model64101;
 pub mod model64110;
 pub mod model64111;
