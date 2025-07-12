@@ -315,6 +315,7 @@ impl SunspecModels for Model {
             63001 => model63001::model63001(),
             63002 => model63002::model63002(),
             64001 => model64001::model64001(),
+            64061 => model64061::model64061(),
             64020 => model64020::model64020(),
             64101 => model64101::model64101(),
             64110 => model64110::model64110(),
