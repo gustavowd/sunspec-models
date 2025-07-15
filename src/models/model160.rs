@@ -5,7 +5,7 @@ pub fn model160(modules_number: u16) -> Model {
         start_addr: 0,
         end_addr: 0,
         model_number: 160,
-        qtd: 7,
+        qtd: 8,
         update: false,
         data: Vec::new(),
     };
