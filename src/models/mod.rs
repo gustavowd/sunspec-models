@@ -103,6 +103,7 @@ pub mod model63002;
 pub mod model64001;
 pub mod model64020;
 pub mod model64061;
+pub mod model64069;
 pub mod model64101;
 pub mod model64110;
 pub mod model64111;
@@ -287,7 +288,6 @@ impl SunspecModels for Model {
             308 => model308::model308(),
             401 => model401::model401(),
             402 => model402::model402(),
-            403 => model403::model403(),
             404 => model404::model404(),
             501 => model501::model501(),
             502 => model502::model502(),
@@ -317,6 +317,7 @@ impl SunspecModels for Model {
             63002 => model63002::model63002(),
             64001 => model64001::model64001(),
             64061 => model64061::model64061(),
+            64069 => model64069::model64069(),
             64020 => model64020::model64020(),
             64101 => model64101::model64101(),
             64110 => model64110::model64110(),
@@ -329,6 +330,7 @@ impl SunspecModels for Model {
     fn new_blocks (model_number: u16, number: u16) -> Self {
         match model_number {
             160 => model160::model160(number),
+            403 => model403::model403(number),
             _ => model160::model160(number)
         }
     }
